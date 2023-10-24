@@ -484,7 +484,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    112
+                    189
                 </div>
                 
 
@@ -519,6 +519,10 @@
 <h5 id="运行mq："><a href="#运行mq：" class="headerlink" title="运行mq："></a>运行mq：</h5><p>需要注意的是-p 5673:5672 解释：-p 外网端口：docker的内部端口 ，你们可以改成自己的外网端口号，我这里映射的外网端口是5673那么程序连接端口就是用5673</p>
 <pre><code>docker run -d --hostname my-rabbit --name rabbit -p 15672:15672 -p 5673:5672 rabbitmq
 </code></pre>
+<p>通过docker ps -a查看部署的mq容器id，在通过 docker exec -it 容器id /bin/bash 进入容器内部在<br>运行：</p>
+<pre><code>rabbitmq-plugins enable rabbitmq_management
+</code></pre>
+<p>现在可以通过访问<a href="http://linuxip:15672，访问web界面，这里的用户名和密码默认都是guest">http://linuxip:15672，访问web界面，这里的用户名和密码默认都是guest</a><br>输入命令：exit退出容器目录.</p>
 
                 
             </div>
@@ -1134,7 +1138,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">474</span>&nbsp;字
+                class="white-color">551</span>&nbsp;字
             
             
             
