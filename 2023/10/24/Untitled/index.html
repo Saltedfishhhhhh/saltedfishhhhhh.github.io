@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Untitled, Fish">
+    <meta name="keywords" content="Docker安装, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Untitled | Fish</title>
+    <title>Docker安装 | Fish</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.webp')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.webp')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Untitled</h1>
+                    <h1 class="description center-align post-title">Docker安装</h1>
                 </div>
             </div>
         </div>
@@ -445,8 +445,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Tags-Test/">
-                                <span class="chip bg-color">Tags Test</span>
+                            <a href="/tags/Docker/">
+                                <span class="chip bg-color">Docker</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AE%89%E8%A3%85/">
+                                <span class="chip bg-color">安装</span>
                             </a>
                         
                     </div>
@@ -457,8 +461,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/SSSSSSSSSSSSSS/" class="post-category">
-                                SSSSSSSSSSSSSS
+                            <a href="/categories/%E7%8E%AF%E5%A2%83/" class="post-category">
+                                环境
                             </a>
                         
                     </div>
@@ -484,7 +488,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5
+                    289
                 </div>
                 
 
@@ -511,7 +515,45 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>一个测试<br>..</p>
+                <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>更新软件包索引，并且安装必要的依赖软件，来添加一个新的 HTTPS 软件源：</p>
+<pre><code>sudo apt update
+sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+</code></pre>
+<p>导入源仓库的 GPG key:</p>
+<pre><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+</code></pre>
+<p>Docker APT 软件源添加到系统：</p>
+<pre><code>sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+</code></pre>
+<p>安装 Docker 最新版本:</p>
+<pre><code>sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+</code></pre>
+<pre><code>想要安装指定版本，首先列出 Docker 软件源中所有可用的版本：
+sudo apt update
+apt list -a docker-ce
+然后选择版本安装：
+sudo apt install docker-ce=&lt;VERSION&gt; docker-ce-cli=&lt;VERSION&gt; containerd.io
+</code></pre>
+<p>输入下面的命令，验证安装是否成功：</p>
+<pre><code>sudo systemctl status docker
+</code></pre>
+<p>输出如下即成功：</p>
+<pre><code>fish@fish-virtual-machine:~$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2023-10-24 11:00:04 CST; 33s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 17919 (dockerd)
+      Tasks: 10
+     Memory: 28.0M
+     CGroup: /system.slice/docker.service
+             └─17919 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+</code></pre>
+<p>阻止 Docker 自动更新，锁住它的版本：</p>
+<pre><code>sudo apt-mark hold docker-ce
+</code></pre>
 
                 
             </div>
@@ -576,8 +618,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Tags-Test/">
-                                    <span class="chip bg-color">Tags Test</span>
+                                <a href="/tags/Docker/">
+                                    <span class="chip bg-color">Docker</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AE%89%E8%A3%85/">
+                                    <span class="chip bg-color">安装</span>
                                 </a>
                             
                         </div>
@@ -893,9 +939,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.webp" class="responsive-img" alt="Untitled">
+                        <img src="/medias/featureimages/13.webp" class="responsive-img" alt="Docker安装">
                         
-                        <span class="card-title">Untitled</span>
+                        <span class="card-title">Docker安装</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -912,8 +958,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/SSSSSSSSSSSSSS/" class="post-category">
-                                    SSSSSSSSSSSSSS
+                            <a href="/categories/%E7%8E%AF%E5%A2%83/" class="post-category">
+                                    环境
                                 </a>
                             
                             
@@ -924,8 +970,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Tags-Test/">
-                        <span class="chip bg-color">Tags Test</span>
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AE%89%E8%A3%85/">
+                        <span class="chip bg-color">安装</span>
                     </a>
                     
                 </div>
@@ -1111,7 +1161,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">78</span>&nbsp;字
+                class="white-color">362</span>&nbsp;字
             
             
             
@@ -1333,4 +1383,6 @@ $(function () {
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haru01.model.json"},"display":{"superSample":2,"width":150,"height":250,"position":"right","hOffset":80,"vOffset":0},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haru01.model.json"},"display":{"superSample":2,"width":150,"height":250,"position":"right","hOffset":80,"vOffset":0},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
