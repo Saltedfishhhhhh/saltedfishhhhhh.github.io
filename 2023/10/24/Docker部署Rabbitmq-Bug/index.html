@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Docker安装, Fish">
+    <meta name="keywords" content="Docker部署Rabbitmq Bug, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Docker安装 | Fish</title>
+    <title>Docker部署Rabbitmq Bug | Fish</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.webp')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.webp')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Docker安装</h1>
+                    <h1 class="description center-align post-title">Docker部署Rabbitmq Bug</h1>
                 </div>
             </div>
         </div>
@@ -449,8 +449,12 @@
                                 <span class="chip bg-color">Docker</span>
                             </a>
                         
-                            <a href="/tags/%E5%AE%89%E8%A3%85/">
-                                <span class="chip bg-color">安装</span>
+                            <a href="/tags/Rabbitmq/">
+                                <span class="chip bg-color">Rabbitmq</span>
+                            </a>
+                        
+                            <a href="/tags/Bug/">
+                                <span class="chip bg-color">Bug</span>
                             </a>
                         
                     </div>
@@ -461,8 +465,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="post-category">
-                                环境安装
+                            <a href="/categories/Bug/" class="post-category">
+                                Bug
                             </a>
                         
                     </div>
@@ -488,7 +492,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    289
+                    113
                 </div>
                 
 
@@ -515,46 +519,29 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>更新软件包索引，并且安装必要的依赖软件，来添加一个新的 HTTPS 软件源：</p>
-<pre><code>sudo apt update
-sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+                <h4 id="访问Channels会报错：-Stats-in-management-UI-are-disabled-on-this-node"><a href="#访问Channels会报错：-Stats-in-management-UI-are-disabled-on-this-node" class="headerlink" title="访问Channels会报错： Stats in management UI are disabled on this node"></a>访问Channels会报错： Stats in management UI are disabled on this node</h4><p><img src="/images/pasted-4.png"></p>
+<p>原因：</p>
+<p>原因是默认镜像禁用了 management_agent 插件中的指标收集器：</p>
+<pre><code> # cat /etc/rabbitmq/conf.d/management_agent.disable_metrics_collector.conf
+ management_agent.disable_metrics_collector = true
+ 
 </code></pre>
-<p>导入源仓库的 GPG key:</p>
-<pre><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+<p>修改方法：</p>
+<pre><code>#进入rabbitmq容器
+docker exec -it {rabbitmq容器名称或者id} /bin/bash
+
+#进入容器后，cd到以下路径
+cd /etc/rabbitmq/conf.d/
+
+#修改 management_agent.disable_metrics_collector = false
+echo management_agent.disable_metrics_collector = false &gt; management_agent.disable_metrics_collector.conf
+
+#退出容器
+exit
+
+#重启rabbitmq容器
+docker retart {rabbitmq容器id}
 </code></pre>
-<p>Docker APT 软件源添加到系统：</p>
-<pre><code>sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-</code></pre>
-<p>安装 Docker 最新版本:</p>
-<pre><code>sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io
-</code></pre>
-<pre><code>想要安装指定版本，首先列出 Docker 软件源中所有可用的版本：
-sudo apt update
-apt list -a docker-ce
-然后选择版本安装：
-sudo apt install docker-ce=&lt;VERSION&gt; docker-ce-cli=&lt;VERSION&gt; containerd.io
-</code></pre>
-<p>输入下面的命令，验证安装是否成功：</p>
-<pre><code>sudo systemctl status docker
-</code></pre>
-<p>输出如下即成功：</p>
-<pre><code>fish@fish-virtual-machine:~$ sudo systemctl status docker
-● docker.service - Docker Application Container Engine
-     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
-     Active: active (running) since Tue 2023-10-24 11:00:04 CST; 33s ago
-TriggeredBy: ● docker.socket
-       Docs: https://docs.docker.com
-   Main PID: 17919 (dockerd)
-      Tasks: 10
-     Memory: 28.0M
-     CGroup: /system.slice/docker.service
-             └─17919 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
-</code></pre>
-<p>阻止 Docker 自动更新，锁住它的版本：</p>
-<pre><code>sudo apt-mark hold docker-ce
-</code></pre>
-<p><img src="/images/pasted-1.png" alt="upload successful"></p>
 
                 
             </div>
@@ -581,7 +568,7 @@ TriggeredBy: ● docker.socket
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://saltedfishhhhhh.github.io/2023/10/24/Untitled/">https://saltedfishhhhhh.github.io/2023/10/24/Untitled/</a>
+                    <a href="https://saltedfishhhhhh.github.io/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/">https://saltedfishhhhhh.github.io/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -623,8 +610,12 @@ TriggeredBy: ● docker.socket
                                     <span class="chip bg-color">Docker</span>
                                 </a>
                             
-                                <a href="/tags/%E5%AE%89%E8%A3%85/">
-                                    <span class="chip bg-color">安装</span>
+                                <a href="/tags/Rabbitmq/">
+                                    <span class="chip bg-color">Rabbitmq</span>
+                                </a>
+                            
+                                <a href="/tags/Bug/">
+                                    <span class="chip bg-color">Bug</span>
                                 </a>
                             
                         </div>
@@ -931,9 +922,68 @@ TriggeredBy: ● docker.socket
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.webp" class="responsive-img" alt="Docker部署Rabbitmq Bug">
+                        
+                        <span class="card-title">Docker部署Rabbitmq Bug</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Bug/" class="post-category">
+                                    Bug
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                    <a href="/tags/Rabbitmq/">
+                        <span class="chip bg-color">Rabbitmq</span>
+                    </a>
+                    
+                    <a href="/tags/Bug/">
+                        <span class="chip bg-color">Bug</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2023/10/24/Docker-Rabbitmq/">
                     <div class="card-image">
@@ -951,9 +1001,9 @@ TriggeredBy: ● docker.socket
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -977,43 +1027,6 @@ TriggeredBy: ● docker.socket
                         <span class="chip bg-color">Rabbitmq</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/10/23/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/17.webp" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-23
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Fish
-                            
-                        </span>
-                    </div>
                 </div>
                 
             </div>
