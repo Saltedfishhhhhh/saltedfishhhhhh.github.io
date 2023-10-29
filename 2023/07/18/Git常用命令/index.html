@@ -526,18 +526,20 @@
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git clone</span><br></pre></td></tr></tbody></table></figure>
 <p>示例：</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git clone https://github.com/tianqixin/runoob-git-test</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="提交与修改"><a href="#提交与修改" class="headerlink" title="提交与修改"></a>提交与修改</h2><figure class="highlight plain"><figcaption><span>add``` 	添加文件到暂存区</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">```git status``` 	查看仓库当前的状态，显示有变更的文件。</span><br><span class="line"></span><br><span class="line">```git diff``` 	比较文件的不同，即暂存区和工作区的差异。</span><br><span class="line"></span><br><span class="line">```git commit``` 	提交暂存区到本地仓库。</span><br></pre></td></tr></tbody></table></figure>
-<p>示例：<br>git commit -m [message]</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">```git reset``` 	回退版本。</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="提交与修改"><a href="#提交与修改" class="headerlink" title="提交与修改"></a>提交与修改</h2><figure class="highlight plain"><figcaption><span>add``` 	添加文件到暂存区</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">```git status``` 	查看仓库当前的状态，显示有变更的文件。</span><br><span class="line"></span><br><span class="line">```git diff``` 	比较文件的不同，即暂存区和工作区的差异。</span><br><span class="line"></span><br><span class="line">```git commit``` 	提交暂存区到本地仓库。</span><br><span class="line"></span><br><span class="line">示例：</span><br></pre></td></tr></tbody></table></figure>
+<p>git commit -m [message]</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">```git reset``` 	回退版本。</span><br></pre></td></tr></tbody></table></figure>
 <p>示例：<br>git reset HEAD^            # 回退所有内容到上一个版本<br>git reset HEAD^ hello.php  # 回退 hello.php 文件的版本到上一个版本<br>git  reset  052e           # 回退到指定版本</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">```git rm &lt;file&gt;``` 	将文件从暂存区和工作区中删除。</span><br><span class="line"></span><br><span class="line">```git mv &lt;file&gt;``` 	移动或重命名工作区文件。</span><br><span class="line"></span><br><span class="line">```git checkout``` 	分支切换。</span><br><span class="line"></span><br><span class="line">```git switch``` （Git 2.23 版本引入） 	更清晰地切换分支。</span><br><span class="line"></span><br><span class="line">```git restore``` （Git 2.23 版本引入） 	恢复或撤销文件的更改。</span><br><span class="line"></span><br><span class="line">## 日志</span><br><span class="line">```git log``` 	查看历史提交记录</span><br><span class="line">```git blame &lt;file&gt;``` 	以列表形式查看指定文件的历史修改记录</span><br><span class="line">## 远程操作</span><br><span class="line">```git remote``` 	远程仓库操作</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">```git rm &lt;file&gt;``` 	将文件从暂存区和工作区中删除。</span><br><span class="line"></span><br><span class="line">```git mv &lt;file&gt;``` 	移动或重命名工作区文件。</span><br><span class="line"></span><br><span class="line">```git checkout``` 	分支切换。</span><br><span class="line"></span><br><span class="line">```git switch``` （Git 2.23 版本引入） 	更清晰地切换分支。</span><br><span class="line"></span><br><span class="line">```git restore``` （Git 2.23 版本引入） 	恢复或撤销文件的更改。</span><br><span class="line"></span><br><span class="line">## 日志</span><br><span class="line"></span><br><span class="line">```git log``` 	查看历史提交记录</span><br><span class="line"></span><br><span class="line">```git blame &lt;file&gt;``` 	以列表形式查看指定文件的历史修改记录</span><br><span class="line"></span><br><span class="line">## 远程操作</span><br><span class="line">```git remote``` 	远程仓库操作</span><br></pre></td></tr></tbody></table></figure>
 <p>git remote：列出当前仓库中已配置的远程仓库。<br>git remote -v：列出当前仓库中已配置的远程仓库，并显示它们的 URL。<br>git remote add <remote_name> <remote_url>：添加一个新的远程仓库。指定一个远程仓库的名称和 URL，将其添加到当前仓库中。<br>git remote rename <old_name> <new_name>：将已配置的远程仓库重命名。<br>git remote remove <remote_name>：从当前仓库中删除指定的远程仓库。<br>git remote set-url <remote_name> <new_url>：修改指定远程仓库的 URL。<br>git remote show <remote_name>：显示指定远程仓库的详细信息，包括 URL 和跟踪分支。</remote_name></new_url></remote_name></remote_name></new_name></old_name></remote_url></remote_name></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">```git fetch``` 	从远程获取代码库</span><br></pre></td></tr></tbody></table></figure>
 <p>从远端仓库提取数据并尝试合并到当前分支：<br>git merge<br>该命令就是在执行 git fetch 之后紧接着执行 git merge 远程分支到你所在的任意分支。<br>假设你配置好了一个远程仓库，并且你想要提取更新的数据，你可以首先执行:<br>git fetch [alias]<br>以上命令告诉 Git 去获取它有你没有的数据，然后你可以执行：<br>git merge [alias]/[branch]<br>以上命令将服务器上的任何更新（假设有人这时候推送到服务器了）合并到你的当前分支。 </p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">```git pull``` 	下载远程代码并合并</span><br><span class="line"></span><br><span class="line">git fetch是将远程主机的最新内容拉到本地，用户在检查了以后决定是否合并到工作本机分支中。 而git pull 则是将远程主机的最新内容拉下来后直接合并，即：git pull = git fetch + git merge，这样可能会产生冲突，需要手动解决。</span><br></pre></td></tr></tbody></table></figure>
 <p>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">```git push``` 	上传远程代码并合并</span><br><span class="line"></span><br><span class="line">命令格式如下：</span><br></pre></td></tr></tbody></table></figure>
-<p>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;<br>如果本地分支名与远程分支名相同，则可以省略冒号：<br>git push &lt;远程主机名&gt; &lt;本地分支名&gt;<br>```</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">```git push``` 	上传远程代码并合并</span><br><span class="line"></span><br><span class="line">命令格式如下：</span><br></pre></td></tr></tbody></table></figure>
+<p>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">如果本地分支名与远程分支名相同，则可以省略冒号：</span><br></pre></td></tr></tbody></table></figure>
+<p>git push &lt;远程主机名&gt; &lt;本地分支名&gt;<br>```</p>
 
                 
             </div>
@@ -952,12 +954,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Rabbitmq/">
-                        <span class="chip bg-color">Rabbitmq</span>
-                    </a>
-                    
                     <a href="/tags/Docker/">
                         <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                    <a href="/tags/Rabbitmq/">
+                        <span class="chip bg-color">Rabbitmq</span>
                     </a>
                     
                 </div>
@@ -1431,10 +1433,10 @@ $(function () {
     if (windowWidth > 768) {
         document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
     }
-    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </script>
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haru01.model.json"},"display":{"superSample":2,"width":150,"height":250,"position":"right","hOffset":80,"vOffset":0},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haru01.model.json"},"display":{"superSample":2,"width":150,"height":250,"position":"right","hOffset":80,"vOffset":0},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 
 </html>
