@@ -3,7 +3,7 @@
 
 
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="Docker安装, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +32,8 @@
 <meta name="generator" content="Hexo 4.2.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -49,7 +50,7 @@
 
 
 <body>
-    <header class="navbar-fixed">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
@@ -488,7 +489,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    289
+                    285
                 </div>
                 
 
@@ -512,48 +513,31 @@
         
 
         
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>更新软件包索引，并且安装必要的依赖软件，来添加一个新的 HTTPS 软件源：</p>
-<pre><code>sudo apt update
-sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-</code></pre>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common</span><br></pre></td></tr></tbody></table></figure>
 <p>导入源仓库的 GPG key:</p>
-<pre><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-</code></pre>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></tbody></table></figure>
+
 <p>Docker APT 软件源添加到系统：</p>
-<pre><code>sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-</code></pre>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"</span><br></pre></td></tr></tbody></table></figure>
 <p>安装 Docker 最新版本:</p>
-<pre><code>sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io
-</code></pre>
-<pre><code>想要安装指定版本，首先列出 Docker 软件源中所有可用的版本：
-sudo apt update
-apt list -a docker-ce
-然后选择版本安装：
-sudo apt install docker-ce=&lt;VERSION&gt; docker-ce-cli=&lt;VERSION&gt; containerd.io
-</code></pre>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">想要安装指定版本，首先列出 Docker 软件源中所有可用的版本：</span><br><span class="line">sudo apt update</span><br><span class="line">apt list -a docker-ce</span><br><span class="line">然后选择版本安装：</span><br><span class="line">sudo apt install docker-ce=&lt;VERSION&gt; docker-ce-cli=&lt;VERSION&gt; containerd.io</span><br></pre></td></tr></tbody></table></figure>
 <p>输入下面的命令，验证安装是否成功：</p>
-<pre><code>sudo systemctl status docker
-</code></pre>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo systemctl status docker</span><br></pre></td></tr></tbody></table></figure>
 <p>输出如下即成功：</p>
-<pre><code>fish@fish-virtual-machine:~$ sudo systemctl status docker
-● docker.service - Docker Application Container Engine
-     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
-     Active: active (running) since Tue 2023-10-24 11:00:04 CST; 33s ago
-TriggeredBy: ● docker.socket
-       Docs: https://docs.docker.com
-   Main PID: 17919 (dockerd)
-      Tasks: 10
-     Memory: 28.0M
-     CGroup: /system.slice/docker.service
-             └─17919 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
-</code></pre>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">fish@fish-virtual-machine:~$ sudo systemctl status docker</span><br><span class="line">● docker.service - Docker Application Container Engine</span><br><span class="line">     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)</span><br><span class="line">     Active: active (running) since Tue 2023-10-24 11:00:04 CST; 33s ago</span><br><span class="line">TriggeredBy: ● docker.socket</span><br><span class="line">       Docs: https://docs.docker.com</span><br><span class="line">   Main PID: 17919 (dockerd)</span><br><span class="line">      Tasks: 10</span><br><span class="line">     Memory: 28.0M</span><br><span class="line">     CGroup: /system.slice/docker.service</span><br><span class="line">             └─17919 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock</span><br></pre></td></tr></tbody></table></figure>
 <p>阻止 Docker 自动更新，锁住它的版本：</p>
-<pre><code>sudo apt-mark hold docker-ce
-</code></pre>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-mark hold docker-ce</span><br></pre></td></tr></tbody></table></figure>
 
                 
             </div>
@@ -1448,7 +1432,7 @@ $(function () {
     if (windowWidth > 768) {
         document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
     }
-    </script>
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
