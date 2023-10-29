@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Docker Rabbitmq, Fish">
+    <meta name="keywords" content="Git常用命令, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Docker Rabbitmq | Fish</title>
+    <title>Git常用命令 | Fish</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.webp')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.webp')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Docker Rabbitmq</h1>
+                    <h1 class="description center-align post-title">Git常用命令</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Docker/">
-                                <span class="chip bg-color">Docker</span>
+                            <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                                <span class="chip bg-color">工具</span>
                             </a>
                         
-                            <a href="/tags/Rabbitmq/">
-                                <span class="chip bg-color">Rabbitmq</span>
+                            <a href="/tags/Git/">
+                                <span class="chip bg-color">Git</span>
                             </a>
                         
                     </div>
@@ -461,8 +461,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="post-category">
-                                环境安装
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/" class="post-category">
+                                工具
                             </a>
                         
                     </div>
@@ -474,28 +474,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-10-24
+                    2023-07-18
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-24
+                    2023-10-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    189
+                    765
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -515,19 +515,63 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Docker安装Rabbitmq"><a href="#Docker安装Rabbitmq" class="headerlink" title="Docker安装Rabbitmq"></a>Docker安装Rabbitmq</h2><h5 id="使用docker查询rabbitmq的镜像"><a href="#使用docker查询rabbitmq的镜像" class="headerlink" title="使用docker查询rabbitmq的镜像"></a>使用docker查询rabbitmq的镜像</h5><pre><code>docker search rabbitmq
+                <h2 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h2><pre><code>git init 	
 </code></pre>
-<p><img src="/images/pasted-2.png"></p>
-<h5 id="默认安装最新的，如果需要指定在后面加版本号"><a href="#默认安装最新的，如果需要指定在后面加版本号" class="headerlink" title="默认安装最新的，如果需要指定在后面加版本号"></a>默认安装最新的，如果需要指定在后面加版本号</h5><pre><code>docker pull rabbitmq
+<h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><p>也就是下载一个项目。</p>
+<pre><code>git clone 
 </code></pre>
-<h5 id="运行mq："><a href="#运行mq：" class="headerlink" title="运行mq："></a>运行mq：</h5><p>需要注意的是-p 5673:5672 解释：-p 外网端口：docker的内部端口 ，你们可以改成自己的外网端口号，我这里映射的外网端口是5673那么程序连接端口就是用5673</p>
-<pre><code>docker run -d --hostname my-rabbit --name rabbit -p 15672:15672 -p 5673:5672 rabbitmq
+<p>示例：</p>
+<pre><code>git clone https://github.com/tianqixin/runoob-git-test
 </code></pre>
-<p>通过docker ps -a查看部署的mq容器id，在通过 docker exec -it 容器id /bin/bash 进入容器内部在<br>运行：</p>
-<pre><code>rabbitmq-plugins enable rabbitmq_management
+<h2 id="提交与修改"><a href="#提交与修改" class="headerlink" title="提交与修改"></a>提交与修改</h2><p><code>git add</code> 	添加文件到暂存区</p>
+<p><code>git status</code> 	查看仓库当前的状态，显示有变更的文件。</p>
+<p><code>git diff</code> 	比较文件的不同，即暂存区和工作区的差异。</p>
+<p><code>git commit</code> 	提交暂存区到本地仓库。</p>
+<pre><code>示例：
+git commit -m [message]
 </code></pre>
-<p>现在可以通过访问linuxip的15672端口访问web界面，这里的用户名和密码默认都是guest</p>
-<p><img src="/images/pasted-3.png"><br>输入命令：exit退出容器目录.</p>
+<p><code>git reset</code> 	回退版本。</p>
+<pre><code>示例：
+git reset HEAD^            # 回退所有内容到上一个版本
+git reset HEAD^ hello.php  # 回退 hello.php 文件的版本到上一个版本
+git  reset  052e           # 回退到指定版本
+</code></pre>
+<p><code>git rm &lt;file&gt;</code> 	将文件从暂存区和工作区中删除。</p>
+<p><code>git mv &lt;file&gt;</code> 	移动或重命名工作区文件。</p>
+<p><code>git checkout</code> 	分支切换。</p>
+<p><code>git switch</code> （Git 2.23 版本引入） 	更清晰地切换分支。</p>
+<p><code>git restore</code> （Git 2.23 版本引入） 	恢复或撤销文件的更改。</p>
+<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p><code>git log</code> 	查看历史提交记录<br><code>git blame &lt;file&gt;</code> 	以列表形式查看指定文件的历史修改记录</p>
+<h2 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h2><p><code>git remote</code> 	远程仓库操作</p>
+<pre><code>    git remote：列出当前仓库中已配置的远程仓库。
+    git remote -v：列出当前仓库中已配置的远程仓库，并显示它们的 URL。
+    git remote add &lt;remote_name&gt; &lt;remote_url&gt;：添加一个新的远程仓库。指定一个远程仓库的名称和 URL，将其添加到当前仓库中。
+    git remote rename &lt;old_name&gt; &lt;new_name&gt;：将已配置的远程仓库重命名。
+    git remote remove &lt;remote_name&gt;：从当前仓库中删除指定的远程仓库。
+    git remote set-url &lt;remote_name&gt; &lt;new_url&gt;：修改指定远程仓库的 URL。
+    git remote show &lt;remote_name&gt;：显示指定远程仓库的详细信息，包括 URL 和跟踪分支。
+</code></pre>
+<p><code>git fetch</code> 	从远程获取代码库</p>
+<pre><code>从远端仓库提取数据并尝试合并到当前分支：
+git merge
+该命令就是在执行 git fetch 之后紧接着执行 git merge 远程分支到你所在的任意分支。
+假设你配置好了一个远程仓库，并且你想要提取更新的数据，你可以首先执行:
+git fetch [alias]
+以上命令告诉 Git 去获取它有你没有的数据，然后你可以执行：
+git merge [alias]/[branch]
+以上命令将服务器上的任何更新（假设有人这时候推送到服务器了）合并到你的当前分支。 
+</code></pre>
+<p><code>git pull</code> 	下载远程代码并合并</p>
+<pre><code>git pull 命令用于从远程获取代码并合并本地的版本。
+git pull 其实就是 git fetch 和 git merge FETCH_HEAD 的简写。
+git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;
+</code></pre>
+<p><code>git push</code> 	上传远程代码并合并</p>
+<p>命令格式如下：</p>
+<pre><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;
+如果本地分支名与远程分支名相同，则可以省略冒号：
+git push &lt;远程主机名&gt; &lt;本地分支名&gt;
+</code></pre>
 
                 
             </div>
@@ -554,7 +598,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://saltedfishhhhhh.github.io/2023/10/24/Docker-Rabbitmq/">https://saltedfishhhhhh.github.io/2023/10/24/Docker-Rabbitmq/</a>
+                    <a href="https://saltedfishhhhhh.github.io/2023/07/18/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">https://saltedfishhhhhh.github.io/2023/07/18/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -592,12 +636,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Docker/">
-                                    <span class="chip bg-color">Docker</span>
+                                <a href="/tags/%E5%B7%A5%E5%85%B7/">
+                                    <span class="chip bg-color">工具</span>
                                 </a>
                             
-                                <a href="/tags/Rabbitmq/">
-                                    <span class="chip bg-color">Rabbitmq</span>
+                                <a href="/tags/Git/">
+                                    <span class="chip bg-color">Git</span>
                                 </a>
                             
                         </div>
@@ -908,13 +952,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/">
+                <a href="/2023/10/24/Docker-Rabbitmq/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.webp" class="responsive-img" alt="Docker部署Rabbitmq Bug">
+                        <img src="/medias/featureimages/19.webp" class="responsive-img" alt="Docker Rabbitmq">
                         
-                        <span class="card-title">Docker部署Rabbitmq Bug</span>
+                        <span class="card-title">Docker Rabbitmq</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -931,8 +975,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Bug/" class="post-category">
-                                    Bug
+                            <a href="/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="post-category">
+                                    环境安装
                                 </a>
                             
                             
@@ -950,10 +994,6 @@
                         <span class="chip bg-color">Rabbitmq</span>
                     </a>
                     
-                    <a href="/tags/Bug/">
-                        <span class="chip bg-color">Bug</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -965,13 +1005,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/07/18/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+                <a href="/2023/05/18/Untitled/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.webp" class="responsive-img" alt="Git常用命令">
+                        <img src="/medias/featureimages/13.webp" class="responsive-img" alt="Docker安装">
                         
-                        <span class="card-title">Git常用命令</span>
+                        <span class="card-title">Docker安装</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -982,14 +1022,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-18
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/" class="post-category">
-                                    工具
+                            <a href="/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="post-category">
+                                    环境安装
                                 </a>
                             
                             
@@ -999,12 +1039,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                        <span class="chip bg-color">工具</span>
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
-                    <a href="/tags/Git/">
-                        <span class="chip bg-color">Git</span>
+                    <a href="/tags/%E5%AE%89%E8%A3%85/">
+                        <span class="chip bg-color">安装</span>
                     </a>
                     
                 </div>
