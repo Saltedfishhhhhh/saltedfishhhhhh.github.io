@@ -488,7 +488,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    765
+                    813
                 </div>
                 
 
@@ -562,9 +562,8 @@ git merge [alias]/[branch]
 以上命令将服务器上的任何更新（假设有人这时候推送到服务器了）合并到你的当前分支。 
 </code></pre>
 <p><code>git pull</code> 	下载远程代码并合并</p>
-<pre><code>git pull 命令用于从远程获取代码并合并本地的版本。
-git pull 其实就是 git fetch 和 git merge FETCH_HEAD 的简写。
-git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;
+<p>git fetch是将远程主机的最新内容拉到本地，用户在检查了以后决定是否合并到工作本机分支中。 而git pull 则是将远程主机的最新内容拉下来后直接合并，即：git pull = git fetch + git merge，这样可能会产生冲突，需要手动解决。</p>
+<pre><code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;
 </code></pre>
 <p><code>git push</code> 	上传远程代码并合并</p>
 <p>命令格式如下：</p>
@@ -986,12 +985,12 @@ git push &lt;远程主机名&gt; &lt;本地分支名&gt;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
-                    </a>
-                    
                     <a href="/tags/Rabbitmq/">
                         <span class="chip bg-color">Rabbitmq</span>
+                    </a>
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                 </div>
