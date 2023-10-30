@@ -489,7 +489,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    285
+                    289
                 </div>
                 
 
@@ -522,22 +522,44 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>更新软件包索引，并且安装必要的依赖软件，来添加一个新的 HTTPS 软件源：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>sudo apt update
+sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+</code></pre>
 <p>导入源仓库的 GPG key:</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></tbody></table></figure>
-
+<pre><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+</code></pre>
 <p>Docker APT 软件源添加到系统：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+</code></pre>
 <p>安装 Docker 最新版本:</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></tbody></table></figure>
-
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">想要安装指定版本，首先列出 Docker 软件源中所有可用的版本：</span><br><span class="line">sudo apt update</span><br><span class="line">apt list -a docker-ce</span><br><span class="line">然后选择版本安装：</span><br><span class="line">sudo apt install docker-ce=&lt;VERSION&gt; docker-ce-cli=&lt;VERSION&gt; containerd.io</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+</code></pre>
+<pre><code>想要安装指定版本，首先列出 Docker 软件源中所有可用的版本：
+sudo apt update
+apt list -a docker-ce
+然后选择版本安装：
+sudo apt install docker-ce=&lt;VERSION&gt; docker-ce-cli=&lt;VERSION&gt; containerd.io
+</code></pre>
 <p>输入下面的命令，验证安装是否成功：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo systemctl status docker</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>sudo systemctl status docker
+</code></pre>
 <p>输出如下即成功：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">fish@fish-virtual-machine:~$ sudo systemctl status docker</span><br><span class="line">● docker.service - Docker Application Container Engine</span><br><span class="line">     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)</span><br><span class="line">     Active: active (running) since Tue 2023-10-24 11:00:04 CST; 33s ago</span><br><span class="line">TriggeredBy: ● docker.socket</span><br><span class="line">       Docs: https://docs.docker.com</span><br><span class="line">   Main PID: 17919 (dockerd)</span><br><span class="line">      Tasks: 10</span><br><span class="line">     Memory: 28.0M</span><br><span class="line">     CGroup: /system.slice/docker.service</span><br><span class="line">             └─17919 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>fish@fish-virtual-machine:~$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2023-10-24 11:00:04 CST; 33s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 17919 (dockerd)
+      Tasks: 10
+     Memory: 28.0M
+     CGroup: /system.slice/docker.service
+             └─17919 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+</code></pre>
 <p>阻止 Docker 自动更新，锁住它的版本：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-mark hold docker-ce</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>sudo apt-mark hold docker-ce
+</code></pre>
 
                 
             </div>

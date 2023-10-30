@@ -446,16 +446,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Docker/">
-                                <span class="chip bg-color">Docker</span>
+                            <a href="/tags/Bug/">
+                                <span class="chip bg-color">Bug</span>
                             </a>
                         
                             <a href="/tags/Rabbitmq/">
                                 <span class="chip bg-color">Rabbitmq</span>
                             </a>
                         
-                            <a href="/tags/Bug/">
-                                <span class="chip bg-color">Bug</span>
+                            <a href="/tags/Docker/">
+                                <span class="chip bg-color">Docker</span>
                             </a>
                         
                     </div>
@@ -486,14 +486,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-24
+                    2023-10-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    109
+                    113
                 </div>
                 
 
@@ -528,13 +528,25 @@
                 <h4 id="访问Channels会报错：-Stats-in-management-UI-are-disabled-on-this-node"><a href="#访问Channels会报错：-Stats-in-management-UI-are-disabled-on-this-node" class="headerlink" title="访问Channels会报错： Stats in management UI are disabled on this node"></a>访问Channels会报错： Stats in management UI are disabled on this node</h4><p><img src="/images/pasted-4.png"></p>
 <p>原因：</p>
 <p>原因是默认镜像禁用了 management_agent 插件中的指标收集器：</p>
-<pre><code> # cat /etc/rabbitmq/conf.d/management_agent.disable_metrics_collector.conf
+<pre><code>cat /etc/rabbitmq/conf.d/management_agent.disable_metrics_collector.conf
  management_agent.disable_metrics_collector = true
- 
 </code></pre>
 <p>修改方法：</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">#进入rabbitmq容器</span><br><span class="line">docker exec -it {rabbitmq容器名称或者id} /bin/bash</span><br><span class="line"></span><br><span class="line">#进入容器后，cd到以下路径</span><br><span class="line">cd /etc/rabbitmq/conf.d/</span><br><span class="line"></span><br><span class="line">#修改 management_agent.disable_metrics_collector = false</span><br><span class="line">echo management_agent.disable_metrics_collector = false &gt; management_agent.disable_metrics_collector.conf</span><br><span class="line"></span><br><span class="line">#退出容器</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">#重启rabbitmq容器</span><br><span class="line">docker retart {rabbitmq容器id}</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>#进入rabbitmq容器
+docker exec -it {rabbitmq容器名称或者id} /bin/bash
 
+#进入容器后，cd到以下路径
+cd /etc/rabbitmq/conf.d/
+
+#修改 management_agent.disable_metrics_collector = false
+echo management_agent.disable_metrics_collector = false &gt; management_agent.disable_metrics_collector.conf
+
+#退出容器
+exit
+
+#重启rabbitmq容器
+docker retart {rabbitmq容器id}
+</code></pre>
 
                 
             </div>
@@ -599,16 +611,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Docker/">
-                                    <span class="chip bg-color">Docker</span>
+                                <a href="/tags/Bug/">
+                                    <span class="chip bg-color">Bug</span>
                                 </a>
                             
                                 <a href="/tags/Rabbitmq/">
                                     <span class="chip bg-color">Rabbitmq</span>
                                 </a>
                             
-                                <a href="/tags/Bug/">
-                                    <span class="chip bg-color">Bug</span>
+                                <a href="/tags/Docker/">
+                                    <span class="chip bg-color">Docker</span>
                                 </a>
                             
                         </div>
@@ -955,16 +967,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
+                    <a href="/tags/Bug/">
+                        <span class="chip bg-color">Bug</span>
                     </a>
                     
                     <a href="/tags/Rabbitmq/">
                         <span class="chip bg-color">Rabbitmq</span>
                     </a>
                     
-                    <a href="/tags/Bug/">
-                        <span class="chip bg-color">Bug</span>
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                 </div>
@@ -1012,12 +1024,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
-                    </a>
-                    
                     <a href="/tags/Rabbitmq/">
                         <span class="chip bg-color">Rabbitmq</span>
+                    </a>
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                 </div>
