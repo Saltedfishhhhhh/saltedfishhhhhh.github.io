@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Docker部署Rabbitmq Bug, Fish">
+    <meta name="keywords" content="连接虚拟机MySQL出错, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Docker部署Rabbitmq Bug | Fish</title>
+    <title>连接虚拟机MySQL出错 | Fish</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/libs/awesome/css/all.css">
@@ -325,12 +325,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/5.webp')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/6.webp')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Docker部署Rabbitmq Bug</h1>
+                    <h1 class="description center-align post-title">连接虚拟机MySQL出错</h1>
                 </div>
             </div>
         </div>
@@ -446,16 +446,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Bug/">
-                                <span class="chip bg-color">Bug</span>
+                            <a href="/tags/mysql/">
+                                <span class="chip bg-color">mysql</span>
                             </a>
                         
-                            <a href="/tags/Rabbitmq/">
-                                <span class="chip bg-color">Rabbitmq</span>
-                            </a>
-                        
-                            <a href="/tags/Docker/">
-                                <span class="chip bg-color">Docker</span>
+                            <a href="/tags/linux/">
+                                <span class="chip bg-color">linux</span>
                             </a>
                         
                     </div>
@@ -466,8 +462,12 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Bug/" class="post-category">
-                                Bug
+                            <a href="/categories/linux/" class="post-category">
+                                linux
+                            </a>
+                        
+                            <a href="/categories/linux/bug/" class="post-category">
+                                bug
                             </a>
                         
                     </div>
@@ -479,21 +479,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-10-24
+                    2023-11-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-30
+                    2023-11-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    113
+                    225
                 </div>
                 
 
@@ -525,28 +525,31 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="访问Channels会报错：-Stats-in-management-UI-are-disabled-on-this-node"><a href="#访问Channels会报错：-Stats-in-management-UI-are-disabled-on-this-node" class="headerlink" title="访问Channels会报错： Stats in management UI are disabled on this node"></a>访问Channels会报错： Stats in management UI are disabled on this node</h4><p><img src="/images/pasted-4.png"></p>
-<p>原因：</p>
-<p>原因是默认镜像禁用了 management_agent 插件中的指标收集器：</p>
-<pre><code>cat /etc/rabbitmq/conf.d/management_agent.disable_metrics_collector.conf
- management_agent.disable_metrics_collector = true
+                <h2 id="检查端口是否开放"><a href="#检查端口是否开放" class="headerlink" title="检查端口是否开放"></a>检查端口是否开放</h2><p>在主机cmd使用<br><code>telnet 虚拟机ip 3306</code>检查虚拟机端口是否开放</p>
+<p>报错：</p>
+<p><code>telnet 192.168.92.129 3306 正在连接192.168.92.129...无法打开到主机的连接。 在端口 3306: 连接失败</code></p>
+<p>查看果真没开放：</p>
+<p><code>firewall-cmd --zone=public --list-ports</code><br><img src="/images/pasted-6.png"></p>
+<pre><code>firewall-cmd --zone=public --add-port=3306/tcp --permanent
+firewall-cmd --reload
 </code></pre>
-<p>修改方法：</p>
-<pre><code>#进入rabbitmq容器
-docker exec -it {rabbitmq容器名称或者id} /bin/bash
-
-#进入容器后，cd到以下路径
-cd /etc/rabbitmq/conf.d/
-
-#修改 management_agent.disable_metrics_collector = false
-echo management_agent.disable_metrics_collector = false &gt; management_agent.disable_metrics_collector.conf
-
-#退出容器
-exit
-
-#重启rabbitmq容器
-docker retart {rabbitmq容器id}
+<p><img src="/images/pasted-7.png"></p>
+<h2 id="允许远程连接"><a href="#允许远程连接" class="headerlink" title="允许远程连接"></a>允许远程连接</h2><p>（我这一步之前还把配置文件的bind—address注释了，不知道要不要这一步）</p>
+<p><img src="/images/pasted-8.png"><br>把root的host改成任意匹配符<br><img src="/images/pasted-9.png"></p>
+<h2 id="修改认证方式"><a href="#修改认证方式" class="headerlink" title="修改认证方式"></a>修改认证方式</h2><pre><code>telnet 192.168.92.129 3306
 </code></pre>
+<p>能初步连上，但乱码，忘了截图<br>使用sqlyog连接，发现报错：错误代码1689</p>
+<p>搜索得知这是因为 mysql 默认的 root 用户使用了 UNIX auth_socket_plugin 的用户认证方式。</p>
+<pre><code>USE mysql;
+SELECT user, host, plugin FROM user;
+</code></pre>
+<p><img src="/images/pasted-10.png"></p>
+<pre><code>UPDATE user SET plugin='mysql_native_password' WHERE user='root';
+FLUSH PRIVILEGES;
+SELECT user, host, plugin FROM user;
+</code></pre>
+<p><img src="/images/pasted-11.png"></p>
+<h2 id="连接成功"><a href="#连接成功" class="headerlink" title="连接成功"></a>连接成功</h2><p><img src="/images/pasted-12.png"></p>
 
                 
             </div>
@@ -573,7 +576,7 @@ docker retart {rabbitmq容器id}
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://saltedfishhhhhh.github.io/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/">https://saltedfishhhhhh.github.io/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/</a>
+                    <a href="https://saltedfishhhhhh.github.io/2023/11/06/%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BAMySQL%E6%8A%A5%E9%94%99/">https://saltedfishhhhhh.github.io/2023/11/06/%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BAMySQL%E6%8A%A5%E9%94%99/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -611,16 +614,12 @@ docker retart {rabbitmq容器id}
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Bug/">
-                                    <span class="chip bg-color">Bug</span>
+                                <a href="/tags/mysql/">
+                                    <span class="chip bg-color">mysql</span>
                                 </a>
                             
-                                <a href="/tags/Rabbitmq/">
-                                    <span class="chip bg-color">Rabbitmq</span>
-                                </a>
-                            
-                                <a href="/tags/Docker/">
-                                    <span class="chip bg-color">Docker</span>
+                                <a href="/tags/linux/">
+                                    <span class="chip bg-color">linux</span>
                                 </a>
                             
                         </div>
@@ -927,9 +926,10 @@ docker retart {rabbitmq容器id}
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/11/06/%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BAMySQL%E6%8A%A5%E9%94%99/">
                     <div class="card-image">
@@ -947,9 +947,9 @@ docker retart {rabbitmq容器id}
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -966,6 +966,7 @@ docker retart {rabbitmq容器id}
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -988,13 +989,13 @@ docker retart {rabbitmq容器id}
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/10/24/Docker-Rabbitmq/">
+                <a href="/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/19.webp" class="responsive-img" alt="Docker Rabbitmq">
+                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/5.webp" class="responsive-img" alt="Docker部署Rabbitmq Bug">
                         
-                        <span class="card-title">Docker Rabbitmq</span>
+                        <span class="card-title">Docker部署Rabbitmq Bug</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1011,8 +1012,8 @@ docker retart {rabbitmq容器id}
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="post-category">
-                                    环境安装
+                            <a href="/categories/Bug/" class="post-category">
+                                    Bug
                                 </a>
                             
                             
@@ -1021,6 +1022,10 @@ docker retart {rabbitmq容器id}
                 </div>
                 
                 <div class="card-action article-tags">
+                    
+                    <a href="/tags/Bug/">
+                        <span class="chip bg-color">Bug</span>
+                    </a>
                     
                     <a href="/tags/Rabbitmq/">
                         <span class="chip bg-color">Rabbitmq</span>
