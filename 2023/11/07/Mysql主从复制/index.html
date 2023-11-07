@@ -547,7 +547,7 @@ binlog_expire_logs_seconds=2592000
 # 如：1062错误是指一些主键重复，1032错误是因为主从数据库数据不一致
 replica_skip_errors=1062
 </code></pre>
-<h3 id="启动mysql创建账户并授权"><a href="#启动mysql创建账户并授权" class="headerlink" title="启动mysql创建账户并授权"></a>启动mysql创建账户并授权</h3><pre><code>CREATE USER '账户名'@'%' IDENTIFIED BY '密码';
+<h3 id="启动mysql创建账户并授权"><a href="#启动mysql创建账户并授权" class="headerlink" title="启动mysql创建账户并授权"></a>启动mysql创建账户并授权</h3><pre class=" language-#"><code class="language-#">CREATE USER '账户名'@'%' IDENTIFIED BY '密码';
 GRANT REPLICATION SLAVE ON *.* TO '账户名'@'%';
 FLUSH PRIVILEGES;
 </code></pre>
