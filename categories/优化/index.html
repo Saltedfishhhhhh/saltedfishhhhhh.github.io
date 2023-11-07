@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="分类: Bug, Fish">
+    <meta name="keywords" content="分类: 优化, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类: Bug | Fish</title>
+    <title>分类: 优化 | Fish</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/libs/awesome/css/all.css">
@@ -395,7 +395,7 @@
                 
                 <a href="/categories/Bug/" title="Bug: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
+                             chip-default "
                             style="background-color: #D5F5E3;">Bug
                         <span class="tag-length">1</span>
                     </span>
@@ -404,7 +404,7 @@
                 
                 <a href="/categories/%E4%BC%98%E5%8C%96/" title="优化: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
+                             chip-active "
                             style="background-color: #E8F8F5;">优化
                         <span class="tag-length">1</span>
                     </span>
@@ -422,7 +422,7 @@
                 
                 <a href="/categories/%E4%BC%98%E5%8C%96/Bug/" title="Bug: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
+                             chip-default "
                             style="background-color: #F8F9F9;">Bug
                         <span class="tag-length">1</span>
                     </span>
@@ -451,33 +451,37 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/">
+                    <a href="/2023/11/07/Mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/5.webp" class="responsive-img" alt="Docker部署Rabbitmq Bug">
+                            <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/19.webp" class="responsive-img" alt="Mysql主从复制">
                             
-                            <span class="card-title">Docker部署Rabbitmq Bug</span>
+                            <span class="card-title">Mysql主从复制</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                访问Channels会报错： Stats in management UI are disabled on this node
-原因：
-原因是默认镜像禁用了 management_agent 插件中的指标收集器：
-cat /etc/rabb
+                                主机配置文件我的配置文件在：/etc/mysql/mysql.conf.d/mysqld.cnf修改对应的配置：
+###主从数据库配置核心部分
+[mysqld]
+# 设置同步的binary log二进制日志文件名前缀，默认为binlog；在
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Bug/" class="post-category">
+                                <a href="/categories/%E4%BC%98%E5%8C%96/" class="post-category">
+                                    优化
+                                </a>
+                                
+                                <a href="/categories/%E4%BC%98%E5%8C%96/Bug/" class="post-category">
                                     Bug
                                 </a>
                                 
@@ -489,16 +493,12 @@ cat /etc/rabb
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Docker/">
-                            <span class="chip bg-color">Docker</span>
+                        <a href="/tags/mysql/">
+                            <span class="chip bg-color">mysql</span>
                         </a>
                         
-                        <a href="/tags/Rabbitmq/">
-                            <span class="chip bg-color">Rabbitmq</span>
-                        </a>
-                        
-                        <a href="/tags/Bug/">
-                            <span class="chip bg-color">Bug</span>
+                        <a href="/tags/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+                            <span class="chip bg-color">主从复制</span>
                         </a>
                         
                     </div>
