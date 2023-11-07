@@ -34,11 +34,11 @@
 }
 
 body {
-    background: #eaeaea linear-gradient(60deg, rgba(224, 255, 125, 0.5) 5%, rgba(0, 228, 255, 0.35)) 0% 0%;
+    background: #180a0a linear-gradient(60deg, rgba(16, 21, 2, 0.5) 5%, rgba(9, 42, 45, 0.35)) 0% 0%;
     cover；background-attachment: fixed;
     margin: 0;
 	
-    color: #34495e;
+    color: #030a10;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -128,7 +128,7 @@ code {
     font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
     font-size: 0.91rem;
     color: #e96900;
-    background-color: #f8f8f8;
+    background-color: #110505;
     border-radius: 2px;
 }
 
