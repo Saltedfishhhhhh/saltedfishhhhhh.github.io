@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Java泛型, Fish">
+    <meta name="keywords" content="Java传参是值传递还是引用传递, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Java泛型 | Fish</title>
+    <title>Java传参是值传递还是引用传递 | Fish</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/libs/awesome/css/all.css">
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/2.webp')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/1.webp')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Java泛型</h1>
+                    <h1 class="description center-align post-title">Java传参是值传递还是引用传递</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java%E5%9F%BA%E7%A1%80/">
-                                <span class="chip bg-color">java基础</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%B3%9B%E5%9E%8B/">
-                                <span class="chip bg-color">泛型</span>
+                            <a href="/tags/java/">
+                                <span class="chip bg-color">java</span>
                             </a>
                         
                     </div>
@@ -461,8 +457,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Java/" class="post-category">
-                                Java
+                            <a href="/categories/java%E5%9F%BA%E7%A1%80/" class="post-category">
+                                java基础
                             </a>
                         
                     </div>
@@ -474,7 +470,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-20
+                    2021-11-11
                 </div>
                 
 
@@ -488,7 +484,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    353
+                    308
                 </div>
                 
 
@@ -520,60 +516,74 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>泛型一般有三种使用方式:泛型类、泛型接口、泛型方法。</p>
-<h2 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h2><pre class=" language-#"><code class="language-#">//此处T可以随便写为任意标识，常见的如T、E、K、V等形式的参数常用于表示泛型
-//在实例化泛型类时，必须指定T的具体类型
-
-public class Generic<T>{
-
-    private T key;
-
-    public Generic(T key) {
-        this.key = key;
-    }
-
-    public T getKey(){
-        return key;
-    }
+                <h1 id="Java-只有值传递"><a href="#Java-只有值传递" class="headerlink" title="Java 只有值传递!!!"></a>Java 只有值传递!!!</h1><h2 id="传递基本类型参数"><a href="#传递基本类型参数" class="headerlink" title="传递基本类型参数"></a>传递基本类型参数</h2><pre class=" language-#"><code class="language-#">public static void main(String[] args) {
+    int num1 = 10;
+    int num2 = 20;
+    swap(num1, num2);
+    System.out.println("num1 = " + num1);
+    System.out.println("num2 = " + num2);
 }
 
-// 实例化：
-Generic<Integer> genericInteger = new Generic<Integer>(123456);
+public static void swap(int a, int b) {
+    int temp = a;
+    a = b;
+    b = temp;
+    System.out.println("a = " + a);
+    System.out.println("b = " + b);
+}
+
+output:
+a = 20
+b = 10
+num1 = 10
+num2 = 20
 </code></pre>
-<h2 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h2><pre class=" language-#"><code class="language-#">public interface Generator<T> {
-    public T method();
+<h2 id="传递引用类型参数1"><a href="#传递引用类型参数1" class="headerlink" title="传递引用类型参数1"></a>传递引用类型参数1</h2><p>看这个例子，看起来似乎是引用传递，别急，再看下一个</p>
+<pre class=" language-#"><code class="language-#">public static void main(String[] args) {
+    int[] arr = { 1, 2, 3, 4, 5 };
+    System.out.println(arr[0]);
+    change(arr);
+    System.out.println(arr[0]);
 }
 
-// 实现泛型接口，不指定类型：
-class GeneratorImpl<T> implements Generator<T>{
-    @Override
-    public T method() {
-        return null;
-    }
-}
-// 实现泛型接口，指定类型：
-class GeneratorImpl<T> implements Generator<String>{
-    @Override
-    public String method() {
-        return "hello";
-    }
-}
-</code></pre>
-<h2 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h2><pre class=" language-#"><code class="language-#">public static < E > void printArray( E[] inputArray ){
-    for ( E element : inputArray ){
-        System.out.printf( "%s ", element );
-    }
-    System.out.println();
+public static void change(int[] array) {
+    // 将数组的第一个元素变为0
+    array[0] = 0;
 }
 
-// 使用：
-// 创建不同类型数组：Integer, Double 和 Character
-Integer[] intArray = { 1, 2, 3 };
-String[] stringArray = { "Hello", "World" };
-printArray( intArray  );
-printArray( stringArray  );
+output:
+1
+0
 </code></pre>
-<p>注意: public static &lt; E &gt; void printArray( E[] inputArray ) 一般被称为静态泛型方法;在 java 中泛型只是一个占位符，必须在传递类型后才能使用。类在实例化时才能真正的传递类型参数，由于静态方法的加载先于类的实例化，也就是说类中的泛型还没有传递真正的类型参数，静态的方法的加载就已经完成了，所以静态泛型方法是没有办法使用类上声明的泛型的。只能使用自己声明的&lt;E&gt;</p>
+<h2 id="传递引用类型参数-2"><a href="#传递引用类型参数-2" class="headerlink" title="传递引用类型参数 2"></a>传递引用类型参数 2</h2><p>可以看到，方法swap并没有改变xiaoZhang 和 xiaoLi 两个实例</p>
+<pre class=" language-#"><code class="language-#">public class Person {
+    private String name;
+   // 省略构造函数、Getter&Setter方法
+}
+
+public static void main(String[] args) {
+    Person xiaoZhang = new Person("小张");
+    Person xiaoLi = new Person("小李");
+    swap(xiaoZhang, xiaoLi);
+    System.out.println("xiaoZhang:" + xiaoZhang.getName());
+    System.out.println("xiaoLi:" + xiaoLi.getName());
+}
+
+public static void swap(Person person1, Person person2) {
+    Person temp = person1;
+    person1 = person2;
+    person2 = temp;
+    System.out.println("person1:" + person1.getName());
+    System.out.println("person2:" + person2.getName());
+}
+
+output:
+person1:小李
+person2:小张
+xiaoZhang:小张
+xiaoLi:小李
+</code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在 Java 语言中本质上只有值传递，也就说 Java 的传参只会传递它的副本，并不会传递参数本身。</p>
 
                 
             </div>
@@ -600,7 +610,7 @@ printArray( stringArray  );
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://saltedfishhhhhh.github.io/2022/01/20/Java%E6%B3%9B%E5%9E%8B/">https://saltedfishhhhhh.github.io/2022/01/20/Java%E6%B3%9B%E5%9E%8B/</a>
+                    <a href="https://saltedfishhhhhh.github.io/2021/11/11/Java%E4%BC%A0%E5%8F%82%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92%E8%BF%98%E6%98%AF%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/">https://saltedfishhhhhh.github.io/2021/11/11/Java%E4%BC%A0%E5%8F%82%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92%E8%BF%98%E6%98%AF%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -638,12 +648,8 @@ printArray( stringArray  );
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/java%E5%9F%BA%E7%A1%80/">
-                                    <span class="chip bg-color">java基础</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%B3%9B%E5%9E%8B/">
-                                    <span class="chip bg-color">泛型</span>
+                                <a href="/tags/java/">
+                                    <span class="chip bg-color">java</span>
                                 </a>
                             
                         </div>
@@ -954,13 +960,13 @@ printArray( stringArray  );
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/18/Untitled/">
+                <a href="/2022/01/20/Java%E6%B3%9B%E5%9E%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/13.webp" class="responsive-img" alt="Docker安装">
+                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/saltedfishhhhhh.github.io/medias/featureimages/2.webp" class="responsive-img" alt="Java泛型">
                         
-                        <span class="card-title">Docker安装</span>
+                        <span class="card-title">Java泛型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -971,14 +977,14 @@ printArray( stringArray  );
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-18
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-20
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="post-category">
-                                    环境安装
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
                                 </a>
                             
                             
@@ -988,12 +994,12 @@ printArray( stringArray  );
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
+                    <a href="/tags/java%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">java基础</span>
                     </a>
                     
-                    <a href="/tags/%E5%AE%89%E8%A3%85/">
-                        <span class="chip bg-color">安装</span>
+                    <a href="/tags/%E6%B3%9B%E5%9E%8B/">
+                        <span class="chip bg-color">泛型</span>
                     </a>
                     
                 </div>
@@ -1004,7 +1010,7 @@ printArray( stringArray  );
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
                 <a href="/2021/11/11/Java%E4%BC%A0%E5%8F%82%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92%E8%BF%98%E6%98%AF%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/">
@@ -1038,6 +1044,7 @@ printArray( stringArray  );
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
