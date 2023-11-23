@@ -481,7 +481,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-11-20
+                    2023-11-23
                 </div>
                 
 
@@ -521,11 +521,11 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="精度损失问题"><a href="#精度损失问题" class="headerlink" title="精度损失问题"></a>精度损失问题</h2><p>浮点数的运算竟有精度丢失的风险</p>
-<pre class=" language-#"><code class="language-#">float a = 2.0f - 1.9f;
-float b = 1.8f - 1.7f;
-System.out.println(a);// 0.100000024
-System.out.println(b);// 0.099999905
-System.out.println(a == b);// false
+<pre class=" language-java"><code class="language-java"><span class="token keyword">float</span> a <span class="token operator">=</span> <span class="token number">2.0f</span> <span class="token operator">-</span> <span class="token number">1.9f</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> b <span class="token operator">=</span> <span class="token number">1.8f</span> <span class="token operator">-</span> <span class="token number">1.7f</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 0.100000024</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 0.099999905</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a <span class="token operator">==</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// false</span>
 </code></pre>
 <p>原因：计算机是二进制的，只能靠多个2的n次方表示，如0.75=0.5+0.25，一些数字如0.2无法用有限的二进制数表示，只能截断因此有精度损失</p>
 <pre class=" language-#"><code class="language-#">// 0.2 转换为二进制数的过程为，不断乘以 2，直到不存在小数为止，
@@ -540,112 +540,112 @@ System.out.println(a == b);// false
 <p>BigDecimal 可以实现对浮点数的运算，不会造成精度丢失。</p>
 <p>通常情况下，大部分需要浮点数精确运算结果的业务场景（比如涉及到钱的场景）都是通过 BigDecimal 来做的。</p>
 <p><img src="/images/pasted-19.png"></p>
-<pre class=" language-#"><code class="language-#">BigDecimal a = new BigDecimal("1.0");
-BigDecimal b = new BigDecimal("0.9");
-BigDecimal c = new BigDecimal("0.8");
+<pre class=" language-java"><code class="language-java">BigDecimal a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+BigDecimal b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"0.9"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+BigDecimal c <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"0.8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-BigDecimal x = a.subtract(b);
-BigDecimal y = b.subtract(c);
+BigDecimal x <span class="token operator">=</span> a<span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+BigDecimal y <span class="token operator">=</span> b<span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-System.out.println(x.compareTo(y));// 0
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 0</span>
 </code></pre>
-<h2 id="BigDecimal-常见方法"><a href="#BigDecimal-常见方法" class="headerlink" title="BigDecimal 常见方法"></a>BigDecimal 常见方法</h2><pre class=" language-#"><code class="language-#">// 加减乘除
-BigDecimal a = new BigDecimal("1.0");
-BigDecimal b = new BigDecimal("0.9");
-System.out.println(a.add(b));// 1.9
-System.out.println(a.subtract(b));// 0.1
-System.out.println(a.multiply(b));// 0.90
-System.out.println(a.divide(b));// 无法除尽，抛出 ArithmeticException 异常
-System.out.println(a.divide(b, 2, RoundingMode.HALF_UP));// 1.11
+<h2 id="BigDecimal-常见方法"><a href="#BigDecimal-常见方法" class="headerlink" title="BigDecimal 常见方法"></a>BigDecimal 常见方法</h2><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 加减乘除</span>
+BigDecimal a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+BigDecimal b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"0.9"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 1.9</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 0.1</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 0.90</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">divide</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 无法除尽，抛出 ArithmeticException 异常</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">divide</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> RoundingMode<span class="token punctuation">.</span>HALF_UP<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 1.11</span>
 </code></pre>
 <p>这里需要注意的是，在我们使用 divide 方法的时候尽量使用 3 个参数版本，并且RoundingMode 不要选择 UNNECESSARY，否则很可能会遇到 ArithmeticException（无法除尽出现无限循环小数的时候），其中 scale 表示要保留几位小数，roundingMode 代表保留规则。</p>
-<pre class=" language-#"><code class="language-#">// 大小比较
-BigDecimal a = new BigDecimal("1.0");
-BigDecimal b = new BigDecimal("0.9");
-System.out.println(a.compareTo(b));// 1
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 大小比较</span>
+BigDecimal a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+BigDecimal b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"0.9"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 1</span>
 # 保留几位小数
-BigDecimal m = new BigDecimal("1.255433");
-BigDecimal n = m.setScale(3,RoundingMode.HALF_DOWN);
-System.out.println(n);// 1.255
+BigDecimal m <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1.255433"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+BigDecimal n <span class="token operator">=</span> m<span class="token punctuation">.</span><span class="token function">setScale</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span>RoundingMode<span class="token punctuation">.</span>HALF_DOWN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 1.255</span>
 </code></pre>
 <h2 id="BigDecimal-等值比较问题"><a href="#BigDecimal-等值比较问题" class="headerlink" title="BigDecimal 等值比较问题"></a>BigDecimal 等值比较问题</h2><p>BigDecimal 使用 equals() 方法进行等值比较出现问题的代码示例：</p>
-<pre class=" language-#"><code class="language-#">BigDecimal a = new BigDecimal("1");
-BigDecimal b = new BigDecimal("1.0");
-System.out.println(a.equals(b));//false
+<pre class=" language-java"><code class="language-java">BigDecimal a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+BigDecimal b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
 </code></pre>
 <p>这是因为 equals() 方法不仅仅会比较值的大小（value）还会比较精度（scale），而 compareTo() 方法比较的时候会忽略精度。1.0 的 scale 是 1，1 的 scale 是 0，因此 a.equals(b) 的结果是 false。</p>
-<pre class=" language-#"><code class="language-#">BigDecimal a = new BigDecimal("1");
-BigDecimal b = new BigDecimal("1.0");
-System.out.println(a.compareTo(b));//0
+<pre class=" language-java"><code class="language-java">BigDecimal a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+BigDecimal b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//0</span>
 </code></pre>
-<h2 id="BigDecimal-工具类分享"><a href="#BigDecimal-工具类分享" class="headerlink" title="BigDecimal 工具类分享"></a>BigDecimal 工具类分享</h2><pre class=" language-#"><code class="language-#">import java.math.BigDecimal;
-import java.math.RoundingMode;
+<h2 id="BigDecimal-工具类分享"><a href="#BigDecimal-工具类分享" class="headerlink" title="BigDecimal 工具类分享"></a>BigDecimal 工具类分享</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>math<span class="token punctuation">.</span>BigDecimal<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>math<span class="token punctuation">.</span>RoundingMode<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 简化BigDecimal计算的小工具类
- */
-public class BigDecimalUtil {
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BigDecimalUtil</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 默认除法运算精度
-     */
-    private static final int DEF_DIV_SCALE = 10;
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> DEF_DIV_SCALE <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
 
-    private BigDecimalUtil() {
-    }
+    <span class="token keyword">private</span> <span class="token function">BigDecimalUtil</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供精确的加法运算。
      *
      * @param v1 被加数
      * @param v2 加数
      * @return 两个参数的和
-     */
-    public static double add(double v1, double v2) {
-        BigDecimal b1 = BigDecimal.valueOf(v1);
-        BigDecimal b2 = BigDecimal.valueOf(v2);
-        return b1.add(b2).doubleValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b1 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BigDecimal b2 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供精确的减法运算。
      *
      * @param v1 被减数
      * @param v2 减数
      * @return 两个参数的差
-     */
-    public static double subtract(double v1, double v2) {
-        BigDecimal b1 = BigDecimal.valueOf(v1);
-        BigDecimal b2 = BigDecimal.valueOf(v2);
-        return b1.subtract(b2).doubleValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">subtract</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b1 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BigDecimal b2 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供精确的乘法运算。
      *
      * @param v1 被乘数
      * @param v2 乘数
      * @return 两个参数的积
-     */
-    public static double multiply(double v1, double v2) {
-        BigDecimal b1 = BigDecimal.valueOf(v1);
-        BigDecimal b2 = BigDecimal.valueOf(v2);
-        return b1.multiply(b2).doubleValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">multiply</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b1 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BigDecimal b2 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到
      * 小数点以后10位，以后的数字四舍五入。
      *
      * @param v1 被除数
      * @param v2 除数
      * @return 两个参数的商
-     */
-    public static double divide(double v1, double v2) {
-        return divide(v1, v2, DEF_DIV_SCALE);
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">divide</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">divide</span><span class="token punctuation">(</span>v1<span class="token punctuation">,</span> v2<span class="token punctuation">,</span> DEF_DIV_SCALE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指
      * 定精度，以后的数字四舍五入。
      *
@@ -653,107 +653,107 @@ public class BigDecimalUtil {
      * @param v2    除数
      * @param scale 表示表示需要精确到小数点以后几位。
      * @return 两个参数的商
-     */
-    public static double divide(double v1, double v2, int scale) {
-        if (scale < 0) {
-            throw new IllegalArgumentException(
-                    "The scale must be a positive integer or zero");
-        }
-        BigDecimal b1 = BigDecimal.valueOf(v1);
-        BigDecimal b2 = BigDecimal.valueOf(v2);
-        return b1.divide(b2, scale, RoundingMode.HALF_EVEN).doubleValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">divide</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">,</span> <span class="token keyword">int</span> scale<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>scale <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>
+                    <span class="token string">"The scale must be a positive integer or zero"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        BigDecimal b1 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BigDecimal b2 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">divide</span><span class="token punctuation">(</span>b2<span class="token punctuation">,</span> scale<span class="token punctuation">,</span> RoundingMode<span class="token punctuation">.</span>HALF_EVEN<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供精确的小数位四舍五入处理。
      *
      * @param v     需要四舍五入的数字
      * @param scale 小数点后保留几位
      * @return 四舍五入后的结果
-     */
-    public static double round(double v, int scale) {
-        if (scale < 0) {
-            throw new IllegalArgumentException(
-                    "The scale must be a positive integer or zero");
-        }
-        BigDecimal b = BigDecimal.valueOf(v);
-        BigDecimal one = new BigDecimal("1");
-        return b.divide(one, scale, RoundingMode.HALF_UP).doubleValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">round</span><span class="token punctuation">(</span><span class="token keyword">double</span> v<span class="token punctuation">,</span> <span class="token keyword">int</span> scale<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>scale <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span>
+                    <span class="token string">"The scale must be a positive integer or zero"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        BigDecimal b <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BigDecimal one <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">.</span><span class="token function">divide</span><span class="token punctuation">(</span>one<span class="token punctuation">,</span> scale<span class="token punctuation">,</span> RoundingMode<span class="token punctuation">.</span>HALF_UP<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供精确的类型转换(Float)
      *
      * @param v 需要被转换的数字
      * @return 返回转换结果
-     */
-    public static float convertToFloat(double v) {
-        BigDecimal b = new BigDecimal(v);
-        return b.floatValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">float</span> <span class="token function">convertToFloat</span><span class="token punctuation">(</span><span class="token keyword">double</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">.</span><span class="token function">floatValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供精确的类型转换(Int)不进行四舍五入
      *
      * @param v 需要被转换的数字
      * @return 返回转换结果
-     */
-    public static int convertsToInt(double v) {
-        BigDecimal b = new BigDecimal(v);
-        return b.intValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">convertsToInt</span><span class="token punctuation">(</span><span class="token keyword">double</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">.</span><span class="token function">intValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提供精确的类型转换(Long)
      *
      * @param v 需要被转换的数字
      * @return 返回转换结果
-     */
-    public static long convertsToLong(double v) {
-        BigDecimal b = new BigDecimal(v);
-        return b.longValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">convertsToLong</span><span class="token punctuation">(</span><span class="token keyword">double</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">.</span><span class="token function">longValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 返回两个数中大的一个值
      *
      * @param v1 需要被对比的第一个数
      * @param v2 需要被对比的第二个数
      * @return 返回两个数中大的一个值
-     */
-    public static double returnMax(double v1, double v2) {
-        BigDecimal b1 = new BigDecimal(v1);
-        BigDecimal b2 = new BigDecimal(v2);
-        return b1.max(b2).doubleValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">returnMax</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BigDecimal b2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 返回两个数中小的一个值
      *
      * @param v1 需要被对比的第一个数
      * @param v2 需要被对比的第二个数
      * @return 返回两个数中小的一个值
-     */
-    public static double returnMin(double v1, double v2) {
-        BigDecimal b1 = new BigDecimal(v1);
-        BigDecimal b2 = new BigDecimal(v2);
-        return b1.min(b2).doubleValue();
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">returnMin</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BigDecimal b2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 精确对比两个数字
      *
      * @param v1 需要被对比的第一个数
      * @param v2 需要被对比的第二个数
      * @return 如果两个数一样则返回0，如果第一个数比第二个数大则返回1，反之返回-1
-     */
-    public static int compareTo(double v1, double v2) {
-        BigDecimal b1 = BigDecimal.valueOf(v1);
-        BigDecimal b2 = BigDecimal.valueOf(v2);
-        return b1.compareTo(b2);
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">compareTo</span><span class="token punctuation">(</span><span class="token keyword">double</span> v1<span class="token punctuation">,</span> <span class="token keyword">double</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BigDecimal b1 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BigDecimal b2 <span class="token operator">=</span> BigDecimal<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b1<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-}
+<span class="token punctuation">}</span>
 </code></pre>
 
                 
