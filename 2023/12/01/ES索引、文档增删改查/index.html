@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Mysql主从复制, Fish">
+    <meta name="keywords" content="ES索引、文档增删改查, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Mysql主从复制 | Fish</title>
+    <title>ES索引、文档增删改查 | Fish</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/libs/awesome/css/all.css">
@@ -329,7 +329,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Mysql主从复制</h1>
+                    <h1 class="description center-align post-title">ES索引、文档增删改查</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/mysql/">
-                                <span class="chip bg-color">mysql</span>
+                            <a href="/tags/elasticsearch/">
+                                <span class="chip bg-color">elasticsearch</span>
                             </a>
                         
-                            <a href="/tags/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
-                                <span class="chip bg-color">主从复制</span>
+                            <a href="/tags/spring-cloud/">
+                                <span class="chip bg-color">spring cloud</span>
                             </a>
                         
                     </div>
@@ -461,12 +461,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E4%BC%98%E5%8C%96/" class="post-category">
-                                优化
-                            </a>
-                        
-                            <a href="/categories/%E4%BC%98%E5%8C%96/Bug/" class="post-category">
-                                Bug
+                            <a href="/categories/springcloud/" class="post-category">
+                                springcloud
                             </a>
                         
                     </div>
@@ -478,28 +474,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-11-07
+                    2023-12-01
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-11-07
+                    2023-12-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    658
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    3 分
                 </div>
                 
 
@@ -524,102 +520,190 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="主机"><a href="#主机" class="headerlink" title="主机"></a>主机</h2><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>我的配置文件在：/etc/mysql/mysql.conf.d/mysqld.cnf<br>修改对应的配置：</p>
-<pre class=" language-#"><code class="language-#">###主从数据库配置核心部分
-[mysqld]
-# 设置同步的binary log二进制日志文件名前缀，默认为binlog；在MySQL 8.0中，无论是否指定--log bin选项，默认情况下都会启用二进制日志记录，并将log_bin系统变量设置为ON。
-log-bin=mysql-bin
-# 服务器唯一id，默认为1，值范围为1～2^32−1. ；主数据库和从数据库的server-id不能重复
-server-id=1          
+                <h2 id="索引增删查"><a href="#索引增删查" class="headerlink" title="索引增删查"></a>索引增删查</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> cn<span class="token punctuation">.</span>itcast<span class="token punctuation">.</span>hotel<span class="token punctuation">;</span>
 
-###可选配置
-# 需要主从复制的数据库，如多个则重复配置
-binlog-do-db=test
-# 复制过滤：也就是指定哪个数据库不用同步（mysql库一般不同步），如多个则重复配置
-binlog-ignore-db=mysql
-# 为每个session分配的内存，在事务过程中用来存储二进制日志的缓存
-binlog_cache_size=1M
-# 主从复制的格式（mixed,statement,row，默认格式是statement。建议是设置为row，主从复制时数据更加能够统一）
-binlog_format=row
-# 配置二进制日志自动删除/过期时间，单位秒，默认值为2592000，即30天；8.0.3版本之前使用expire_logs_days，单位天数，默认值为0，表示不自动删除。
-binlog_expire_logs_seconds=2592000
-# 跳过主从复制中遇到的所有错误或指定类型的错误，避免slave端复制中断，默认OFF关闭，可选值有OFF、all、ddl_exist_errors以及错误码列表。8.0.26版本之前使用slave_skip_errors
-# 如：1062错误是指一些主键重复，1032错误是因为主从数据库数据不一致
-replica_skip_errors=1062
-</code></pre>
-<h3 id="启动mysql创建账户并授权"><a href="#启动mysql创建账户并授权" class="headerlink" title="启动mysql创建账户并授权"></a>启动mysql创建账户并授权</h3><pre class=" language-#"><code class="language-#">CREATE USER '账户名'@'%' IDENTIFIED BY '密码';
-GRANT REPLICATION SLAVE ON *.* TO '账户名'@'%';
-FLUSH PRIVILEGES;
-</code></pre>
-<h3 id="记住二进制文件及位置"><a href="#记住二进制文件及位置" class="headerlink" title="记住二进制文件及位置"></a>记住二进制文件及位置</h3><p><img src="/images/pasted-13.png"></p>
-<h2 id="从机"><a href="#从机" class="headerlink" title="从机"></a>从机</h2><h3 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h3><pre class=" language-#"><code class="language-#">###主从数据库配置核心部分
-[mysqld]
-# 设置同步的binary log二进制日志文件名前缀，默认是binlog
-log-bin=mysql-bin
-# 服务器唯一id，默认为1，值范围为1～2^32−1. ；主数据库和从数据库的server-id不能重复
-server-id=2
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpHost<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>action<span class="token punctuation">.</span>admin<span class="token punctuation">.</span>indices<span class="token punctuation">.</span>delete<span class="token punctuation">.</span>DeleteIndexRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>client<span class="token punctuation">.</span>RequestOptions<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>client<span class="token punctuation">.</span>RestClient<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>client<span class="token punctuation">.</span>RestHighLevelClient<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>client<span class="token punctuation">.</span>indices<span class="token punctuation">.</span>CreateIndexRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>client<span class="token punctuation">.</span>indices<span class="token punctuation">.</span>GetIndexRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>common<span class="token punctuation">.</span>xcontent<span class="token punctuation">.</span>XContentType<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>AfterEach<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>BeforeEach<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>SpringBootTest<span class="token punctuation">;</span>
 
-###可选配置
-# 需要主从复制的数据库 ，如多个则重复配置
-replicate-do-db=test
-# 复制过滤：也就是指定哪个数据库不用同步（mysql库一般不同步） ，如多个则重复配置
-binlog-ignore-db=mysql
-# 为每个session分配的内存，在事务过程中用来存储二进制日志的缓存 
-binlog_cache_size=1M
-# 主从复制的格式（mixed,statement,row，默认格式是statement。建议是设置为row，主从复制时数据更加能够统一） 
-binlog_format=row
-# 配置二进制日志自动删除/过期时间，单位秒，默认值为2592000，即30天；8.0.3版本之前使用expire_logs_days，单位天数，默认值为0，表示不自动删除。
-binlog_expire_logs_seconds=2592000
-# 跳过主从复制中遇到的所有错误或指定类型的错误，避免slave端复制中断，默认OFF关闭，可选值有OFF、all、ddl_exist_errors以及错误码列表。8.0.26版本之前使用slave_skip_errors
-# 如：1062错误是指一些主键重复，1032错误是因为主从数据库数据不一致
-replica_skip_errors=1062
-# relay_log配置中继日志，默认采用 主机名-relay-bin 的方式保存日志文件 
-relay_log=replicas-mysql-relay-bin  
-# log_replica_updates表示slave是否将复制事件写进自己的二进制日志，默认值ON开启；8.0.26版本之前使用log_slave_updates
-log_replica_updates=ON
-# 防止改变数据(只读操作，除了特殊的线程)
-read_only=ON
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token keyword">static</span> cn<span class="token punctuation">.</span>itcast<span class="token punctuation">.</span>hotel<span class="token punctuation">.</span>constants<span class="token punctuation">.</span>HotelIndexConstants<span class="token punctuation">.</span>MAPPING_TEMPLATE<span class="token punctuation">;</span>
+
+
+<span class="token annotation punctuation">@SpringBootTest</span>
+<span class="token keyword">class</span> <span class="token class-name">HotelDemoApplicationTests</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> RestHighLevelClient client<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@BeforeEach</span>
+    <span class="token keyword">void</span> <span class="token function">setUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RestHighLevelClient</span><span class="token punctuation">(</span>RestClient<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span>
+                HttpHost<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"http://192.168.92.129:9200"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@AfterEach</span>
+    <span class="token keyword">void</span> <span class="token function">tearDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        client<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">createHotelIndex</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        CreateIndexRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CreateIndexRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span>MAPPING_TEMPLATE<span class="token punctuation">,</span> XContentType<span class="token punctuation">.</span>JSON<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        client<span class="token punctuation">.</span><span class="token function">indices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testExistsIndex</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1.准备Request</span>
+        GetIndexRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetIndexRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.发送请求</span>
+        <span class="token keyword">boolean</span> isExists <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">indices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>isExists <span class="token operator">?</span> <span class="token string">"存在"</span> <span class="token operator">:</span> <span class="token string">"不存在"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testDeleteIndex</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1.准备Request</span>
+        DeleteIndexRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeleteIndexRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.发送请求</span>
+        client<span class="token punctuation">.</span><span class="token function">indices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+
+<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="设置联系"><a href="#设置联系" class="headerlink" title="设置联系"></a>设置联系</h3><p>启动mysql，按上面的内容改成自己的</p>
-<p>低于8.0.23版本的语法：</p>
-<pre class=" language-#"><code class="language-#">CHANGE MASTER TO MASTER_HOST='主机地址',MASTER_PORT=3306,MASTER_USER='账户名',MASTER_PASSWORD='密码',MASTER_LOG_FILE='mysql-bin.000011',MASTER_LOG_POS=1693;
-</code></pre>
-<p>自8.0.23版本后的语法：</p>
-<pre class=" language-#"><code class="language-#">CHANGE REPLICATION SOURCE TO SOURCE_HOST='主机地址',SOURCE_PORT=3306,SOURCE_USER='账户名',SOURCE_PASSWORD='密码',SOURCE_LOG_FILE='mysql-bin.000011',SOURCE_LOG_POS=1693;
-</code></pre>
-<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>低于8.0.22版本的语法(都在mysql内执行)：</p>
-<pre><code>START SLAVE;
-</code></pre>
-<p>自8.0.22版本后的语法，都把slave换成REPLICA：</p>
-<pre><code>START REPLICA;
-</code></pre>
-<p>查看状态：</p>
-<pre><code>SHOW REPLICA STATUS\G;
-</code></pre>
-<p>这三次这样就表示已经成功<br><img src="/images/pasted-15.png"></p>
-<h2 id="途中bug"><a href="#途中bug" class="headerlink" title="途中bug"></a>途中bug</h2><h3 id="认证问题"><a href="#认证问题" class="headerlink" title="认证问题"></a>认证问题</h3><p><img src="/images/pasted-18.png"><br>错误信息指出，认证插件 ‘caching_sha2_password’ 报告了一个错误，指示认证需要安全连接。<br><img src="/images/pasted-16.png"><br>解决方法，修改认证方式，在主机的mysql处：</p>
-<pre><code>ALTER USER 'yourusername'@'localhost' IDENTIFIED WITH mysql_native_password BY 'youpassword';
-</code></pre>
-<h3 id="MySQL的UUIDS相同"><a href="#MySQL的UUIDS相同" class="headerlink" title="MySQL的UUIDS相同"></a>MySQL的UUIDS相同</h3><p>配置完后显示两服务器MySQL的UUIDS相同，原因是我直接克隆虚拟机导致UUID相同。。。。。。<br><img src="/images/pasted-14.png"><br>解决方法，从机处：</p>
-<pre class=" language-#"><code class="language-#"># 先生成uuid
-mysql> select uuid();
-+--------------------------------------+
-| uuid()                               |
-+--------------------------------------+
-| 97f25087-7d40-11ee-8dad-000c2958cf96 |
-+--------------------------------------+
-1 row in set (0.00 sec)
-# 找到文件位置
-mysql> show variables like 'datadir';
-+---------------+-----------------+
-| Variable_name | Value           |
-+---------------+-----------------+
-| datadir       | /var/lib/mysql/ |
-+---------------+-----------------+
-1 row in set (0.02 sec)
-# 退出mysql修改UUID，重启即可
-vim /var/lib/mysql/auto.cnf
-service mysql restart
+<h2 id="文档增删改查"><a href="#文档增删改查" class="headerlink" title="文档增删改查"></a>文档增删改查</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> cn<span class="token punctuation">.</span>itcast<span class="token punctuation">.</span>hotel<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>itcast<span class="token punctuation">.</span>hotel<span class="token punctuation">.</span>pojo<span class="token punctuation">.</span>Hotel<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>itcast<span class="token punctuation">.</span>hotel<span class="token punctuation">.</span>pojo<span class="token punctuation">.</span>HotelDoc<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>itcast<span class="token punctuation">.</span>hotel<span class="token punctuation">.</span>service<span class="token punctuation">.</span>IHotelService<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>fastjson<span class="token punctuation">.</span>JSON<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpHost<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>action<span class="token punctuation">.</span>bulk<span class="token punctuation">.</span>BulkRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>action<span class="token punctuation">.</span>delete<span class="token punctuation">.</span>DeleteRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>action<span class="token punctuation">.</span>get<span class="token punctuation">.</span>GetRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>action<span class="token punctuation">.</span>get<span class="token punctuation">.</span>GetResponse<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>action<span class="token punctuation">.</span>index<span class="token punctuation">.</span>IndexRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>action<span class="token punctuation">.</span>update<span class="token punctuation">.</span>UpdateRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>client<span class="token punctuation">.</span>RequestOptions<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>client<span class="token punctuation">.</span>RestClient<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>client<span class="token punctuation">.</span>RestHighLevelClient<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>elasticsearch<span class="token punctuation">.</span>common<span class="token punctuation">.</span>xcontent<span class="token punctuation">.</span>XContentType<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>AfterEach<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>BeforeEach<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>SpringBootTest<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@SpringBootTest</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HotelDocumentTest</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> RestHighLevelClient client<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> IHotelService hotelService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testAddDocument</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1.查询数据库hotel数据</span>
+        Hotel hotel <span class="token operator">=</span> hotelService<span class="token punctuation">.</span><span class="token function">getById</span><span class="token punctuation">(</span>61083L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.转换为HotelDoc</span>
+        HotelDoc hotelDoc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HotelDoc</span><span class="token punctuation">(</span>hotel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.转JSON</span>
+        String json <span class="token operator">=</span> JSON<span class="token punctuation">.</span><span class="token function">toJSONString</span><span class="token punctuation">(</span>hotelDoc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 1.准备Request</span>
+        IndexRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IndexRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span>hotelDoc<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.准备请求参数DSL，其实就是文档的JSON字符串</span>
+        request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span>json<span class="token punctuation">,</span> XContentType<span class="token punctuation">.</span>JSON<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.发送请求</span>
+        client<span class="token punctuation">.</span><span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testGetDocumentById</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1.准备Request      // GET /hotel/_doc/{id}</span>
+        GetRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">,</span> <span class="token string">"61083"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.发送请求</span>
+        GetResponse response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.解析响应结果</span>
+        String json <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getSourceAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        HotelDoc hotelDoc <span class="token operator">=</span> JSON<span class="token punctuation">.</span><span class="token function">parseObject</span><span class="token punctuation">(</span>json<span class="token punctuation">,</span> HotelDoc<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"hotelDoc = "</span> <span class="token operator">+</span> hotelDoc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testDeleteDocumentById</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1.准备Request      // DELETE /hotel/_doc/{id}</span>
+        DeleteRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeleteRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">,</span> <span class="token string">"61083"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.发送请求</span>
+        client<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testUpdateById</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1.准备Request</span>
+        UpdateRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UpdateRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">,</span> <span class="token string">"61083"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.准备参数</span>
+        request<span class="token punctuation">.</span><span class="token function">doc</span><span class="token punctuation">(</span>
+                <span class="token string">"price"</span><span class="token punctuation">,</span> <span class="token string">"870"</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3.发送请求</span>
+        client<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">void</span> <span class="token function">testBulkRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 查询所有的酒店数据</span>
+        List<span class="token operator">&lt;</span>Hotel<span class="token operator">></span> list <span class="token operator">=</span> hotelService<span class="token punctuation">.</span><span class="token function">list</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 1.准备Request</span>
+        BulkRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BulkRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.准备参数</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Hotel hotel <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 2.1.转为HotelDoc</span>
+            HotelDoc hotelDoc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HotelDoc</span><span class="token punctuation">(</span>hotel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 2.2.转json</span>
+            String json <span class="token operator">=</span> JSON<span class="token punctuation">.</span><span class="token function">toJSONString</span><span class="token punctuation">(</span>hotelDoc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 2.3.添加请求</span>
+            request<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">IndexRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span>hotel<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span>json<span class="token punctuation">,</span> XContentType<span class="token punctuation">.</span>JSON<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 3.发送请求</span>
+        client<span class="token punctuation">.</span><span class="token function">bulk</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@BeforeEach</span>
+    <span class="token keyword">void</span> <span class="token function">setUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RestHighLevelClient</span><span class="token punctuation">(</span>RestClient<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span>
+                HttpHost<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"http://192.168.150.101:9200"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@AfterEach</span>
+    <span class="token keyword">void</span> <span class="token function">tearDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        client<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+
+<span class="token punctuation">}</span>
 </code></pre>
 
                 
@@ -647,7 +731,7 @@ service mysql restart
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://saltedfishhhhhh.github.io/2023/11/07/Mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">https://saltedfishhhhhh.github.io/2023/11/07/Mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</a>
+                    <a href="https://saltedfishhhhhh.github.io/2023/12/01/ES%E7%B4%A2%E5%BC%95%E3%80%81%E6%96%87%E6%A1%A3%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">https://saltedfishhhhhh.github.io/2023/12/01/ES%E7%B4%A2%E5%BC%95%E3%80%81%E6%96%87%E6%A1%A3%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -685,12 +769,12 @@ service mysql restart
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/mysql/">
-                                    <span class="chip bg-color">mysql</span>
+                                <a href="/tags/elasticsearch/">
+                                    <span class="chip bg-color">elasticsearch</span>
                                 </a>
                             
-                                <a href="/tags/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
-                                    <span class="chip bg-color">主从复制</span>
+                                <a href="/tags/spring-cloud/">
+                                    <span class="chip bg-color">spring cloud</span>
                                 </a>
                             
                         </div>
@@ -997,9 +1081,10 @@ service mysql restart
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/12/01/ES%E7%B4%A2%E5%BC%95%E3%80%81%E6%96%87%E6%A1%A3%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">
                     <div class="card-image">
@@ -1017,9 +1102,9 @@ service mysql restart
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1032,6 +1117,7 @@ service mysql restart
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1054,13 +1140,13 @@ service mysql restart
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/11/06/%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BAMySQL%E6%8A%A5%E9%94%99/">
+                <a href="/2023/11/07/Mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/medias/featureimages/6.webp" class="responsive-img" alt="连接虚拟机MySQL出错">
+                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/medias/featureimages/19.webp" class="responsive-img" alt="Mysql主从复制">
                         
-                        <span class="card-title">连接虚拟机MySQL出错</span>
+                        <span class="card-title">Mysql主从复制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1071,18 +1157,18 @@ service mysql restart
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-07
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category">
-                                    linux
+                            <a href="/categories/%E4%BC%98%E5%8C%96/" class="post-category">
+                                    优化
                                 </a>
                             
-                            <a href="/categories/linux/bug/" class="post-category">
-                                    bug
+                            <a href="/categories/%E4%BC%98%E5%8C%96/Bug/" class="post-category">
+                                    Bug
                                 </a>
                             
                             
@@ -1096,8 +1182,8 @@ service mysql restart
                         <span class="chip bg-color">mysql</span>
                     </a>
                     
-                    <a href="/tags/linux/">
-                        <span class="chip bg-color">linux</span>
+                    <a href="/tags/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+                        <span class="chip bg-color">主从复制</span>
                     </a>
                     
                 </div>
