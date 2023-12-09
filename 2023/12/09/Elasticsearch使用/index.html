@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Docker Rabbitmq, Fish">
+    <meta name="keywords" content="Elasticsearch使用, Fish">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Docker Rabbitmq | Fish</title>
+    <title>Elasticsearch使用 | Fish</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/libs/awesome/css/all.css">
@@ -329,7 +329,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Docker Rabbitmq</h1>
+                    <h1 class="description center-align post-title">Elasticsearch使用</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Docker/">
-                                <span class="chip bg-color">Docker</span>
-                            </a>
-                        
-                            <a href="/tags/Rabbitmq/">
-                                <span class="chip bg-color">Rabbitmq</span>
+                            <a href="/tags/Elasticsearch/">
+                                <span class="chip bg-color">Elasticsearch</span>
                             </a>
                         
                     </div>
@@ -461,8 +457,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="post-category">
-                                环境安装
+                            <a href="/categories/Elasticsearch/" class="post-category">
+                                Elasticsearch
                             </a>
                         
                     </div>
@@ -474,28 +470,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-10-24
+                    2023-12-09
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-11-07
+                    2023-12-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    189
+                    666
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -520,19 +516,188 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Docker安装Rabbitmq"><a href="#Docker安装Rabbitmq" class="headerlink" title="Docker安装Rabbitmq"></a>Docker安装Rabbitmq</h2><h5 id="使用docker查询rabbitmq的镜像"><a href="#使用docker查询rabbitmq的镜像" class="headerlink" title="使用docker查询rabbitmq的镜像"></a>使用docker查询rabbitmq的镜像</h5><pre class=" language-#"><code class="language-#">docker search rabbitmq
+                <h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HotelService</span> <span class="token keyword">extends</span> <span class="token class-name">ServiceImpl</span><span class="token operator">&lt;</span>HotelMapper<span class="token punctuation">,</span> Hotel<span class="token operator">></span> <span class="token keyword">implements</span> <span class="token class-name">IHotelService</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> RestHighLevelClient restHighLevelClient<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> PageResult <span class="token function">search</span><span class="token punctuation">(</span>RequestParams params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 1.准备Request</span>
+            SearchRequest request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"hotel"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 2.准备请求参数</span>
+            <span class="token comment" spellcheck="true">// 2.1.query</span>
+            <span class="token function">buildBasicQuery</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 2.2.分页</span>
+            <span class="token keyword">int</span> page <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> size <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token punctuation">(</span>page <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 2.3.距离排序</span>
+            String location <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getLocation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>SortBuilders
+                        <span class="token punctuation">.</span><span class="token function">geoDistanceSort</span><span class="token punctuation">(</span><span class="token string">"location"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">GeoPoint</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span>SortOrder<span class="token punctuation">.</span>ASC<span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">unit</span><span class="token punctuation">(</span>DistanceUnit<span class="token punctuation">.</span>KILOMETERS<span class="token punctuation">)</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// 3.发送请求</span>
+            SearchResponse response <span class="token operator">=</span> restHighLevelClient<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> RequestOptions<span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 4.解析响应</span>
+            <span class="token keyword">return</span> <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"搜索数据失败"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">buildBasicQuery</span><span class="token punctuation">(</span>RequestParams params<span class="token punctuation">,</span> SearchRequest request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 1.准备Boolean查询</span>
+        BoolQueryBuilder boolQuery <span class="token operator">=</span> QueryBuilders<span class="token punctuation">.</span><span class="token function">boolQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 1.1.关键字搜索，match查询，放到must中</span>
+        String key <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 不为空，根据关键字查询</span>
+            boolQuery<span class="token punctuation">.</span><span class="token function">must</span><span class="token punctuation">(</span>QueryBuilders<span class="token punctuation">.</span><span class="token function">matchQuery</span><span class="token punctuation">(</span><span class="token string">"all"</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 为空，查询所有</span>
+            boolQuery<span class="token punctuation">.</span><span class="token function">must</span><span class="token punctuation">(</span>QueryBuilders<span class="token punctuation">.</span><span class="token function">matchAllQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 1.2.品牌</span>
+        String brand <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getBrand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>brand<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            boolQuery<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>QueryBuilders<span class="token punctuation">.</span><span class="token function">termQuery</span><span class="token punctuation">(</span><span class="token string">"brand"</span><span class="token punctuation">,</span> brand<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 1.3.城市</span>
+        String city <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getCity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>city<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            boolQuery<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>QueryBuilders<span class="token punctuation">.</span><span class="token function">termQuery</span><span class="token punctuation">(</span><span class="token string">"city"</span><span class="token punctuation">,</span> city<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 1.4.星级</span>
+        String starName <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getStarName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>starName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            boolQuery<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>QueryBuilders<span class="token punctuation">.</span><span class="token function">termQuery</span><span class="token punctuation">(</span><span class="token string">"starName"</span><span class="token punctuation">,</span> starName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 1.5.价格范围</span>
+        Integer minPrice <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getMinPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Integer maxPrice <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">getMaxPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minPrice <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> maxPrice <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            maxPrice <span class="token operator">=</span> maxPrice <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> Integer<span class="token punctuation">.</span>MAX_VALUE <span class="token operator">:</span> maxPrice<span class="token punctuation">;</span>
+            boolQuery<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>QueryBuilders<span class="token punctuation">.</span><span class="token function">rangeQuery</span><span class="token punctuation">(</span><span class="token string">"price"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gte</span><span class="token punctuation">(</span>minPrice<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">lte</span><span class="token punctuation">(</span>maxPrice<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 2.算分函数查询</span>
+        FunctionScoreQueryBuilder functionScoreQuery <span class="token operator">=</span> QueryBuilders<span class="token punctuation">.</span><span class="token function">functionScoreQuery</span><span class="token punctuation">(</span>
+                boolQuery<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 原始查询，boolQuery</span>
+                <span class="token keyword">new</span> <span class="token class-name">FunctionScoreQueryBuilder<span class="token punctuation">.</span>FilterFunctionBuilder</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// function数组</span>
+                        <span class="token keyword">new</span> <span class="token class-name">FunctionScoreQueryBuilder<span class="token punctuation">.</span>FilterFunctionBuilder</span><span class="token punctuation">(</span>
+                                QueryBuilders<span class="token punctuation">.</span><span class="token function">termQuery</span><span class="token punctuation">(</span><span class="token string">"isAD"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 过滤条件</span>
+                                ScoreFunctionBuilders<span class="token punctuation">.</span><span class="token function">weightFactorFunction</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 算分函数</span>
+                        <span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 3.设置查询条件</span>
+        request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>functionScoreQuery<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> PageResult <span class="token function">handleResponse</span><span class="token punctuation">(</span>SearchResponse response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SearchHits searchHits <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 4.1.总条数</span>
+        <span class="token keyword">long</span> total <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getTotalHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 4.2.获取文档数组</span>
+        SearchHit<span class="token punctuation">[</span><span class="token punctuation">]</span> hits <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 4.3.遍历</span>
+        List<span class="token operator">&lt;</span>HotelDoc<span class="token operator">></span> hotels <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>hits<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>SearchHit hit <span class="token operator">:</span> hits<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 4.4.获取source</span>
+            String json <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getSourceAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 4.5.反序列化，非高亮的</span>
+            HotelDoc hotelDoc <span class="token operator">=</span> JSON<span class="token punctuation">.</span><span class="token function">parseObject</span><span class="token punctuation">(</span>json<span class="token punctuation">,</span> HotelDoc<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 4.6.处理高亮结果</span>
+            <span class="token comment" spellcheck="true">// 1)获取高亮map</span>
+            Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> HighlightField<span class="token operator">></span> map <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getHighlightFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>map <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>map<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 2）根据字段名，获取高亮结果</span>
+                HighlightField highlightField <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>highlightField <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// 3）获取高亮结果字符串数组中的第1个元素</span>
+                    String hName <span class="token operator">=</span> highlightField<span class="token punctuation">.</span><span class="token function">getFragments</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">// 4）把高亮结果放到HotelDoc中</span>
+                    hotelDoc<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span>hName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// 4.8.排序信息</span>
+            Object<span class="token punctuation">[</span><span class="token punctuation">]</span> sortValues <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getSortValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>sortValues<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                hotelDoc<span class="token punctuation">.</span><span class="token function">setDistance</span><span class="token punctuation">(</span>sortValues<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// 4.9.放入集合</span>
+            hotels<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>hotelDoc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">PageResult</span><span class="token punctuation">(</span>total<span class="token punctuation">,</span> hotels<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+ 
 </code></pre>
-<p><img src="/images/pasted-2.png"></p>
-<h5 id="默认安装最新的，如果需要指定在后面加版本号"><a href="#默认安装最新的，如果需要指定在后面加版本号" class="headerlink" title="默认安装最新的，如果需要指定在后面加版本号"></a>默认安装最新的，如果需要指定在后面加版本号</h5><pre class=" language-##"><code class="language-##">docker pull rabbitmq
+<h3 id="Entry"><a href="#Entry" class="headerlink" title="Entry"></a>Entry</h3><pre class=" language-java"><code class="language-java"># <span class="token annotation punctuation">@Data</span>，构造函数已省略
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Hotel</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@TableId</span><span class="token punctuation">(</span>type <span class="token operator">=</span> IdType<span class="token punctuation">.</span>INPUT<span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Long id<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String address<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer price<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer score<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String brand<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String city<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String starName<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String business<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String longitude<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String latitude<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String pic<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HotelDoc</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> Long id<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String address<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer price<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer score<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String brand<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String city<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String starName<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String business<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String location<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String pic<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Object distance<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Boolean isAD<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RequestParams</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String key<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer page<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer size<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String sortBy<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String brand<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String city<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String starName<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer minPrice<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Integer maxPrice<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String location<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PageResult</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> Long total<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>HotelDoc<span class="token operator">></span> hotels<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
 </code></pre>
-<h5 id="运行mq："><a href="#运行mq：" class="headerlink" title="运行mq："></a>运行mq：</h5><p>需要注意的是-p 5673:5672 解释：-p 外网端口：docker的内部端口 ，你们可以改成自己的外网端口号，我这里映射的外网端口是5673那么程序连接端口就是用5673</p>
-<pre class=" language-#"><code class="language-#">docker run -d --hostname my-rabbit --name rabbit -p 15672:15672 -p 5673:5672 rabbitmq
-</code></pre>
-<p>通过docker ps -a查看部署的mq容器id，在通过 docker exec -it 容器id /bin/bash 进入容器内部在<br>运行：</p>
-<pre class=" language-#"><code class="language-#">rabbitmq-plugins enable rabbitmq_management
-</code></pre>
-<p>现在可以通过访问linuxip的15672端口访问web界面，这里的用户名和密码默认都是guest</p>
-<p><img src="/images/pasted-3.png"><br>输入命令：exit退出容器目录.</p>
 
                 
             </div>
@@ -559,7 +724,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://saltedfishhhhhh.github.io/2023/10/24/Docker-Rabbitmq/">https://saltedfishhhhhh.github.io/2023/10/24/Docker-Rabbitmq/</a>
+                    <a href="https://saltedfishhhhhh.github.io/2023/12/09/Elasticsearch%E4%BD%BF%E7%94%A8/">https://saltedfishhhhhh.github.io/2023/12/09/Elasticsearch%E4%BD%BF%E7%94%A8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -597,12 +762,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Docker/">
-                                    <span class="chip bg-color">Docker</span>
-                                </a>
-                            
-                                <a href="/tags/Rabbitmq/">
-                                    <span class="chip bg-color">Rabbitmq</span>
+                                <a href="/tags/Elasticsearch/">
+                                    <span class="chip bg-color">Elasticsearch</span>
                                 </a>
                             
                         </div>
@@ -909,17 +1070,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/10/24/Docker%E9%83%A8%E7%BD%B2Rabbitmq-Bug/">
+                <a href="/2023/12/09/Elasticsearch%E4%BD%BF%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/medias/featureimages/5.webp" class="responsive-img" alt="Docker部署Rabbitmq Bug">
+                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/medias/featureimages/19.webp" class="responsive-img" alt="Elasticsearch使用">
                         
-                        <span class="card-title">Docker部署Rabbitmq Bug</span>
+                        <span class="card-title">Elasticsearch使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -929,34 +1091,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Bug/" class="post-category">
-                                    Bug
+                            <a href="/categories/Elasticsearch/" class="post-category">
+                                    Elasticsearch
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
-                    </a>
-                    
-                    <a href="/tags/Rabbitmq/">
-                        <span class="chip bg-color">Rabbitmq</span>
-                    </a>
-                    
-                    <a href="/tags/Bug/">
-                        <span class="chip bg-color">Bug</span>
+                    <a href="/tags/Elasticsearch/">
+                        <span class="chip bg-color">Elasticsearch</span>
                     </a>
                     
                 </div>
@@ -970,13 +1125,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/07/18/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+                <a href="/2023/12/01/ES%E7%B4%A2%E5%BC%95%E3%80%81%E6%96%87%E6%A1%A3%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/medias/featureimages/8.webp" class="responsive-img" alt="Git常用命令">
+                        <img src="https://cdn.jsdelivr.net/gh/Saltedfishhhhhh/cdn/source/medias/featureimages/19.webp" class="responsive-img" alt="Elasticsearch索引、文档、搜索">
                         
-                        <span class="card-title">Git常用命令</span>
+                        <span class="card-title">Elasticsearch索引、文档、搜索</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -987,14 +1142,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/" class="post-category">
-                                    工具
+                            <a href="/categories/springcloud/" class="post-category">
+                                    springcloud
                                 </a>
                             
                             
@@ -1004,12 +1159,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B7%A5%E5%85%B7/">
-                        <span class="chip bg-color">工具</span>
+                    <a href="/tags/elasticsearch/">
+                        <span class="chip bg-color">elasticsearch</span>
                     </a>
                     
-                    <a href="/tags/Git/">
-                        <span class="chip bg-color">Git</span>
+                    <a href="/tags/spring-cloud/">
+                        <span class="chip bg-color">spring cloud</span>
                     </a>
                     
                 </div>
